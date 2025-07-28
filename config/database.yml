@@ -19,3 +19,4 @@ production:
   encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   url: <%= ENV["DATABASE_URL"] %>
+  # host / username / password を**絶対に書かないこと！**
