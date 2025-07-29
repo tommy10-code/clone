@@ -113,7 +113,7 @@
 | 使用API            | Google Maps API, Google Geocoding API |
 
 ### 画面遷移図
-Figma：https://x.gd/t33Fr
+Figma：https://x.gd/99kSn
 
 ### READMEに記載した機能
 - [x] ユーザー登録機能
