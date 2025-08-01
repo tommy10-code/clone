@@ -145,4 +145,4 @@ Figma：https://x.gd/99kSn
 - [x] 作り込みはある程度完了している（Figmaを見て画面の作成ができる状態にある）
 
 ER図
-https://gyazo.com/95a2abd48032d189c7c028bee31191e6
+https://i.gyazo.com/58f775f0384bdbf0eda7278c0af30232.png
