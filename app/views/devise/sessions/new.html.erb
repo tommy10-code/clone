@@ -3,7 +3,7 @@
 
 <div class="flex justify-center">
   <div class="w-full max-w-md">
-    <%= form_with model: @user, local: true do |f| %>
+    <%= form_with url: user_session_path, scope: :user, local: true do |f| %>
       <div class="mb-4">
         <%= f.label :email, class: "block text-xl font-medium mb-1" %>
         <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "w-full border border-gray-300 rounded px-4 py-2 text-lg" %>

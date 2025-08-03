@@ -3,6 +3,10 @@ Rails.application.routes.draw do
   root "home#index"
   resources :users, only: [:index, :show]
 
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
+
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Render dynamic PWA files from app/views/pwa/*
