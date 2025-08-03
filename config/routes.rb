@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get "diagnoses/new"
+  post "diagnosis/result", to: "diagnoses#result", as: :diagnosis_result
   devise_for :users
   root "home#index"
   resources :users, only: [:index, :show]
