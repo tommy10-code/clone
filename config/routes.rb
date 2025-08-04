@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
+  get "diagnoses/new"
+  post "diagnosis/result", to: "diagnoses#result", as: :diagnosis_result
+  devise_for :users
   root "home#index"
-  resources :tasks
+  resources :users, only: [:index, :show]
+
+  if Rails.env.development?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+  end
 
   get "up" => "rails/health#show", as: :rails_health_check
 
