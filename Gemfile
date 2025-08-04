@@ -38,6 +38,10 @@ gem "bootsnap", require: false
 
 gem "aws-sdk-s3", require: false
 
+gem 'devise'
+gem 'devise-i18n'
+gem 'rails-i18n', '~> 7.0.0'
+
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -53,7 +57,8 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
-    gem 'annotate'
+  gem 'annotate'
+  gem 'letter_opener_web', '~> 3.0'
 end
 
 group :test do
