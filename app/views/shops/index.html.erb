@@ -2,6 +2,29 @@
   <!-- 左側：地図 -->
   <div class="w-2/3 flex flex-col">
     <div id="map" class="h-2/3 w-full"></div>
+  
+
+  <!-- 左側：検索窓 -->
+    <%= search_form_for @q, url: shops_path, method: :get do |f| %>
+      <div class="flex items-center space-x-2 mb-4">
+        <div>
+          <%= f.label :category_id_eq, "カテゴリ検索" %>
+          <%= f.collection_select :category_id_eq, Category.all, :id, :name, { include_blank: "すべて" }, class: "border px-4 py-2 rounded w-full bg-white" %>
+        </div>
+
+    <!-- キーワード検索（幅を広げる） -->
+      <div class="flex flex-col flex-grow">
+        <%= f.label :title_or_address_cont, "キーワード検索" %>
+        <div class="flex space-x-2 w-full">
+          <%= f.search_field :title_or_address_cont, placeholder: "タイトルまたは住所", class: "border px-4 py-2 rounded bg-white w-full" %>
+          <%= f.submit "検索", class: "bg-blue-500 text-white px-4 py-2 rounded whitespace-nowrap" %>
+        </div>
+      </div>
+
+
+      </div>
+    <% end %>
+    
   </div>
 
   <!-- 右側：お店一覧（地図と高さ合わせる） -->
@@ -12,6 +35,10 @@
         <h3 class="text-lg font-semibold">
           <%= shop.title %>
         </h3>
+          <p class="text-sm text-gray-600">
+          <%= link_to "お店詳細", shop_path(shop), class: "inline-block mt-2 text-sm text-white bg-blue-500 hover:bg-blue-600 px-3 py-1 rounded" %>
+
+            カテゴリ: <%= shop.category&.name || "" %></p>
       </div>
     <% end %>
   </div>
