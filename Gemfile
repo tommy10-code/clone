@@ -41,7 +41,9 @@ gem "aws-sdk-s3", require: false
 gem 'devise'
 gem 'devise-i18n'
 gem 'rails-i18n', '~> 7.0.0'
-
+gem 'geocoder'
+gem "importmap-rails"
+gem 'ransack'
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -52,6 +54,7 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+  gem 'dotenv-rails'
 end
 
 group :development do
@@ -66,3 +69,4 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
