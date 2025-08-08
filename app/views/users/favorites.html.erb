@@ -20,24 +20,23 @@
           <%= f.submit "検索", class: "bg-blue-500 text-white px-4 py-2 rounded whitespace-nowrap" %>
         </div>
       </div>
-
-
       </div>
     <% end %>
-    
   </div>
 
   <!-- 右側：お店一覧（地図と高さ合わせる） -->
   <div class="w-1/3 p-4 overflow-y-auto bg-white h-2/3">
     <h2 class="text-xl font-bold mb-4">お店一覧</h2>
-    <% @shops.each do |shop| %>
+    <% @favorite_shops.each do |shop| %>
       <div class="mb-4 border-b pb-2">
         <h3 class="text-lg font-semibold">
           <%= shop.title %>
         </h3>
           <p class="text-sm text-gray-600">
           <%= link_to "お店詳細", shop_path(shop), class: "inline-block mt-2 text-sm text-white bg-blue-500 hover:bg-blue-600 px-3 py-1 rounded" %>カテゴリ: <%= shop.category&.name || "" %></p>
+          
           <%= render 'shops/bookmark_button', shop: shop %>
+          
       </div>
     <% end %>
   </div>
@@ -58,7 +57,7 @@
       center: { lat: 35.170915, lng: 136.881537 } // 名古屋駅周辺
     });
 
-    <% @shops.each do |shop| %>
+    <% @favorite_shops.each do |shop| %>
       <% if shop.latitude.present? && shop.longitude.present? %>
         new google.maps.Marker({
           position: { lat: <%= shop.latitude %>, lng: <%= shop.longitude %> },
