@@ -25,7 +25,7 @@
   <nav class="hidden md:flex space-x-6 text-gray-700 text-sm font-medium">
     <% if user_signed_in? %>
       <%= link_to "お店一覧", shops_path, class: "hover:text-primary" %>
-      <%= link_to "お気に入り", "#", class: "hover:text-primary" %>
+      <%= link_to "お気に入り", favorites_path , class: "hover:text-primary" %>
       <%= link_to "お店投稿", new_shop_path	, class: "hover:text-primary" %>
       <%= link_to "デート診断", diagnoses_new_path	, class: "hover:text-primary" %>
       <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete}  %>
