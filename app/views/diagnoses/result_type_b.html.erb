@@ -1,0 +1,19 @@
+<div class="max-w-xl mx-auto text-center mt-10">
+  <h1 class="text-3xl font-bold mb-8">ぴったりなお店が見つかりました！</h1>
+
+  <p class="text-sm text-gray-500 mb-6">おしゃれな彼女には雰囲気が決めてかも？</p>
+
+  <div class="mb-10">
+    <p class="text-xl font-semibold mb-2">おすすめカテゴリー</p>
+    <p class="text-lg">「フレンチ」</p>
+
+    <%= link_to "おすすめカテゴリーをmapで見る", shops_path(q: { category_id_eq: 16 }), class: "inline-block mt-4 px-6 py-3 bg-[#D5A273] text-white font-semibold rounded hover:bg-[#b77f53]" %>
+  </div>
+
+  <div class="mb-10">
+    <p class="text-xl font-semibold mb-2">おすすめのお店</p>
+    <p class="text-lg">#お店の名【仮】#</p>
+
+    <%= link_to "お店詳細", shop_path(17), class: "inline-block mt-4 px-6 py-3 bg-[#D5A273] text-white font-semibold rounded hover:bg-[#b77f53]" %>
+  </div>
+</div>

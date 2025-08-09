@@ -16,6 +16,11 @@
   <%= form.collection_select :category_id, Category.all, :id, :name, prompt: "カテゴリを選択" %>
 </div>
 
+  <div class="mb-4">
+    <%= form.label :images, "お店の画像" %>
+    <%= form.file_field :images, class: "border px-4 py-2 rounded w-full" %>
+  </div>
+
 <div>
     <%= form.submit "登録", class: "font-semibold mb-1" %>
   </div>

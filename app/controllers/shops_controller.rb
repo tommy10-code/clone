@@ -30,7 +30,7 @@ class ShopsController < ApplicationController
   def update
 	  @shop = Shop.find(params[:id])
       if @shop.update(shop_params)
-        redirect_to shops_path, notice: "User was successfully updated."
+        redirect_to shop_path(@shop), notice: "User was successfully updated."
       else
         render :edit, status: :unprocessable_entity
       end
@@ -44,6 +44,6 @@ class ShopsController < ApplicationController
 
   private
   def shop_params
-    params.require(:shop).permit(:title, :address, :latitude, :longitude, :category_id )
+    params.require(:shop).permit(:title, :address, :latitude, :longitude, :category_id, images: [] )
   end
 end
