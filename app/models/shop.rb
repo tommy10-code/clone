@@ -5,6 +5,7 @@ class Shop < ApplicationRecord
   belongs_to :category, optional: true
   has_many :favorites, dependent: :destroy
   has_many :users, through: :favorites
+  has_many_attached :images
 
   def self.ransackable_attributes(auth_object = nil)
   ["title", "address", "body", "category_id", "created_at", "latitude", "longitude" ]
