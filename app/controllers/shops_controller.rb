@@ -29,11 +29,12 @@ class ShopsController < ApplicationController
 
   def update
 	  @shop = Shop.find(params[:id])
-      if @shop.update(shop_params)
-        redirect_to shop_path(@shop), notice: "User was successfully updated."
-      else
-        render :edit, status: :unprocessable_entity
-      end
+
+    if @shop.update(shop_params)
+      redirect_to shop_path(@shop), notice: "User was successfully updated."
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
  def destroy
