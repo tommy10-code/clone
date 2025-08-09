@@ -1,21 +1,19 @@
 class DiagnosesController < ApplicationController
+  before_action :authenticate_user!
+
   def new
   end
 
   def result
-    if current_user.nil?
-      # 未ログインならログインページへ
-      redirect_to new_user_session_path, alert: "ログインが必要です"
+    case params[:answer].to_s
+    when "0"
+      render "result_type_a"
+    when "1"
+      render "result_type_b"
+    when "2"
+      render "result_type_c"
     else
-      # ログイン済みなら診断結果に応じて遷移
-      case params[:answer].to_i
-      when 0
-        redirect_to "result_path_0_path"
-      when 1
-        redirect_to "result_path_1_path"
-      else
-        redirect_to "default_result_path"
-      end
+      redirect_to diagnoses_new_path , alert: "診断を選択してください"
     end
   end
 end
