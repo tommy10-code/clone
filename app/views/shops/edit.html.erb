@@ -18,7 +18,8 @@
 
   <div class="mb-4">
     <%= form.label :images, "お店の画像" %>
-    <%= form.file_field :images, class: "border px-4 py-2 rounded w-full" %>
+    <%= form.file_field :images, multiple: true, accept: "image/*", direct_upload: true, class: "w-full border rounded px-3 py-2" %>
+    <p class="text-sm text-gray-500">※ 複数選択できます（⌘/Ctrlキーで選択）</p>
   </div>
 
 <div>

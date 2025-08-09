@@ -44,6 +44,7 @@ gem 'rails-i18n', '~> 7.0.0'
 gem 'geocoder'
 gem "importmap-rails"
 gem 'ransack'
+gem "image_processing", "~> 1.2"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
