@@ -31,42 +31,109 @@
     <% @shops.each do |shop| %>
       <div class="mb-4 border-b pb-2">
         <h3 class="text-lg font-semibold">
+        <a href="#"
+          class="text-black hover:text-blue-600 js-shop-title"
+          data-shop-id="<%= shop.id %>">
           <%= shop.title %>
+        </a>
         </h3>
           <p class="text-sm text-gray-600">
           <%= link_to "お店詳細", shop_path(shop), class: "inline-block mt-2 text-sm text-white bg-blue-500 hover:bg-blue-600 px-3 py-1 rounded" %>カテゴリ: <%= shop.category&.name || "" %></p>
           <%= render 'shops/bookmark_button', shop: shop %>
       </div>
     <% end %>
+    <%= paginate @shops %>
   </div>
 </div>
 
+
+
 <div id="map" style="height: 500px; width: 100%;"></div>
 
-<!-- Google Maps API読み込み：callback=initMap に任せる -->
 <script async defer
   src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&callback=initMap">
 </script>
 
-<!-- 地図初期化関数（Google APIのcallbackとして定義）-->
 <script>
+  const RED_ICON  = "https://maps.google.com/mapfiles/ms/icons/red-dot.png";
+  const BLUE_ICON = "https://maps.google.com/mapfiles/ms/icons/blue-dot.png";
+
+  const markersById = {}; // shop.id -> marker
+  let infoWindow;
+
   function initMap() {
     const map = new google.maps.Map(document.getElementById("map"), {
       zoom: 13,
-      center: { lat: 35.170915, lng: 136.881537 } // 名古屋駅周辺
+      center: { lat: 35.170915, lng: 136.881537 }
     });
+
+    infoWindow = new google.maps.InfoWindow();
 
     <% @shops.each do |shop| %>
       <% if shop.latitude.present? && shop.longitude.present? %>
-        new google.maps.Marker({
-          position: { lat: <%= shop.latitude %>, lng: <%= shop.longitude %> },
-          map: map,
-          title: "<%= j shop.title %>"
-        });
+        (function() {
+          const id       = <%= shop.id %>;
+          const title    = "<%= j shop.title.to_s %>";
+          const category = "<%= j(shop.category&.name.to_s) %>";
+          const googleSearchUrl = "https://www.google.com/search?q=<%= ERB::Util.url_encode(shop.title.to_s) %>";
+
+          const marker = new google.maps.Marker({
+            position: { lat: <%= shop.latitude %>, lng: <%= shop.longitude %> },
+            map,
+            title,
+            icon: RED_ICON
+          });
+
+          const content = `
+            <div style="padding:6px; min-width: 180px;">
+              <div style="font-weight:600; margin-bottom:4px;">${title}</div>
+              ${category ? `<div style="font-size:12px; color:#6b7280; margin-bottom:6px;">カテゴリ: ${category}</div>` : ""}
+              <a href="${googleSearchUrl}" target="_blank" rel="noopener"
+                 style="display:inline-block; background:#2563eb; color:#fff; padding:4px 8px; border-radius:4px; font-size:12px; text-decoration:none;">
+                Googleで検索
+              </a>
+            </div>
+          `;
+
+          // マーカーホバーで情報表示
+          marker.addListener("mouseover", () => {
+            infoWindow.setContent(content);
+            infoWindow.open({ anchor: marker, map });
+          });
+
+          // マーカークリックでも青くハイライト
+          marker.addListener("click", () => highlightMarker(id, marker, map));
+
+          markersById[id] = marker;
+        })();
       <% end %>
     <% end %>
+
+    // 一覧タイトルのクリック連動をセット
+    bindListClicks(map);
   }
 
-  // Google Maps API の callback に使うためグローバル定義
+  // 全部赤に戻して、指定マーカーだけ青＆センター
+  function highlightMarker(id, marker, map) {
+    Object.values(markersById).forEach(m => m.setIcon(RED_ICON));
+    (marker || markersById[id])?.setIcon(BLUE_ICON);
+
+    const target = marker || markersById[id];
+    if (!target) return;
+    map.panTo(target.getPosition());
+    if (map.getZoom() < 15) map.setZoom(15);
+  }
+
+  // 右側一覧のタイトルに .js-shop-title を付け、data-shop-id で紐付け
+  function bindListClicks(map) {
+    document.querySelectorAll(".js-shop-title").forEach(el => {
+      el.addEventListener("click", (e) => {
+        e.preventDefault(); // ページ遷移させない場合
+        const id = Number(el.dataset.shopId);
+        highlightMarker(id, null, map);
+      });
+    });
+  }
+
   window.initMap = initMap;
 </script>
