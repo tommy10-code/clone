@@ -3,7 +3,7 @@ class ShopsController < ApplicationController
 
   def index
     @q = Shop.ransack(params[:q])
-    @shops = @q.result.order(created_at: :desc).page(params[:page]).per(5)
+    @shops = @q.result.order(created_at: :desc)
   end
 
   def show
