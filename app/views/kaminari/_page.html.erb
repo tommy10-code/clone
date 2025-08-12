@@ -1,0 +1,10 @@
+
+<li>
+  <% if current_user %>
+    <span class="inline-flex items-center justify-center px-3 py-2 rounded-md bg-blue-600 text-white text-sm font-semibold">
+     <%= link_to page, url %>
+    </span>
+  <% else %>
+    <%= link_to page, url, class: "inline-flex items-center justify-center px-3 py-2 rounded-md text-sm border border-gray-300 hover:bg-gray-50" %>
+  <% end %>
+</li>

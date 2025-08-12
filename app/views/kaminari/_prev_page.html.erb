@@ -1,0 +1,9 @@
+<%# app/views/kaminari/_prev_page.html.erb %>
+<%# locals: url, current_page %>
+<li>
+  <% if current_page.first? %>
+    <span class="inline-flex px-3 py-2 rounded-md text-sm text-gray-400 border border-gray-200 cursor-not-allowed">前へ</span>
+  <% else %>
+    <%= link_to "前へ", url, class: "inline-flex px-3 py-2 rounded-md text-sm border border-gray-300 hover:bg-gray-50" %>
+  <% end %>
+</li>
