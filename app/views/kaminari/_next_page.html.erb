@@ -1,0 +1,9 @@
+<%# app/views/kaminari/_next_page.html.erb %>
+<%# locals: url, current_page %>
+<li>
+  <% if current_page.last? %>
+    <span class="inline-flex px-3 py-2 rounded-md text-sm text-gray-400 border border-gray-200 cursor-not-allowed">次へ</span>
+  <% else %>
+    <%= link_to "次へ", url, class: "inline-flex px-3 py-2 rounded-md text-sm border border-gray-300 hover:bg-gray-50" %>
+  <% end %>
+</li>

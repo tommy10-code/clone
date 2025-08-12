@@ -12,7 +12,12 @@
 </div>
 
 <div class="mb-4">
-  <%= form.label :category_id, "カテゴリ" %>
+  <%= form.label :scene_id, "カテゴリ" %>
+  <%= form.collection_select :scene_id, Category.all, :id, :name, prompt: "カテゴリを選択" %>
+</div>
+
+<div class="mb-4">
+  <%= form.label :, "カテゴリ" %>
   <%= form.collection_select :category_id, Category.all, :id, :name, prompt: "カテゴリを選択" %>
 </div>
 
