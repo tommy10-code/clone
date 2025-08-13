@@ -1,4 +1,19 @@
-<%= form_with model: @shop, local: true, html: { class: "max-w-xl mx-auto bg-white p-8 rounded shadow-md" }  do |form| %>
+
+
+<%= form_with model: @shop, local: true, data: { turbo: false }, html: { class: "max-w-xl mx-auto bg-white p-8 rounded shadow-md" }  do |form| %>
+
+<% if @shop.errors.any? %>
+  <div class="mb-4 p-3 bg-red-50 border border-red-200 rounded">
+    <p class="font-bold text-red-600">
+      入力エラー（<%= @shop.errors.count %>件）
+    </p>
+    <ul class="list-disc ml-5 text-red-600">
+      <% @shop.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
 
 <h1>お店の登録</h1>
   <div>

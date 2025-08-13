@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="h-full">
   <head>
     <title><%= content_for(:title) || "Myapp" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -16,23 +16,30 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
   </head>
-  
-  <body class="flex flex-col min-h-screen bg-yellow-50">
-    <% if notice %>
-      <p class="bg-green-100 text-green-800 p-2 rounded"><%= notice %></p>
+
+<body class="h-dvh flex flex-col min-h-screen bg-yellow-50">
+  <%= render "layouts/header" %>       <!-- 1) ヘッダー -->
+
+  <!-- 2) フラッシュをヘッダーの直下に -->
+  <div class="px-4">
+    <% flash.each do |type, msg| %>
+      <% next if msg.blank? %>
+      <% klass =
+        case type.to_sym
+        when :notice, :success then "bg-green-100 text-green-800"
+        when :alert,  :error   then "bg-red-100 text-red-800"
+        else "bg-slate-100 text-slate-800"
+        end %>
+      <p class="<%= klass %> p-2 my-2 rounded shadow-sm"><%= msg %></p>
     <% end %>
+  </div>
 
-    <% if alert %>
-      <p class="bg-red-100 text-red-800 p-2 mb-4 rounded"><%= alert %></p>
-    <% end %>
+  <!-- 3) コンテンツ -->
+  <main class="flex-1 min-h-0 overflow-y-auto px-4">
+    <%= yield %>
+  </main>
 
-    <%= render "layouts/header" %>
+  <%= render "layouts/footer" %>
+</body>
 
-    <main class="px-4">
-      <%= yield %>
-    </main>
-    
-    <%= render "layouts/footer" %>
-
-  </body>
 </html>
