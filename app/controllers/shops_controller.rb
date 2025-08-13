@@ -19,7 +19,7 @@ class ShopsController < ApplicationController
     if @shop.save
       redirect_to shops_path, notice: "お店を登録しました", status: :see_other
     else
-      render :new
+      render :new, status: :unprocessable_entity 
     end
   end
 
@@ -31,7 +31,7 @@ class ShopsController < ApplicationController
     @shop = current_user.shops.find(params[:id])     # ← 自分の投稿だけ拾う
 
     if @shop.update(shop_params)
-      redirect_to shop_path(@shop), notice: "User was successfully updated."
+      redirect_to shop_path(@shop), notice: "お店を更新しました"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -40,7 +40,7 @@ class ShopsController < ApplicationController
  def destroy
     @shop = current_user.shops.find(params[:id])     # ← 自分の投稿だけ拾う
     @shop.destroy
-      redirect_to shops_path, status: :see_other, notice: "User was successfully destroyed."
+      redirect_to shops_path, status: :see_other, notice: "お店を削除しました"
   end
 
   private
