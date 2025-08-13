@@ -1,5 +1,5 @@
 class ShopsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:index, :show]
 
   def index
     @q = Shop.ransack(params[:q])
@@ -15,20 +15,20 @@ class ShopsController < ApplicationController
   end
 
   def create
-    @shop = Shop.new(shop_params)
+    @shop = current_user.shops.new(shop_params)
     if @shop.save
-      redirect_to shops_path, notice: "お店を登録しました"
+      redirect_to shops_path, notice: "お店を登録しました", status: :see_other
     else
       render :new
     end
   end
 
   def edit
-	  @shop = Shop.find(params[:id])
+    @shop = current_user.shops.find(params[:id])     # ← 自分の投稿だけ拾う
   end
 
   def update
-	  @shop = Shop.find(params[:id])
+    @shop = current_user.shops.find(params[:id])     # ← 自分の投稿だけ拾う
 
     if @shop.update(shop_params)
       redirect_to shop_path(@shop), notice: "User was successfully updated."
@@ -38,7 +38,7 @@ class ShopsController < ApplicationController
   end
 
  def destroy
- 	  @shop = Shop.find(params[:id])
+    @shop = current_user.shops.find(params[:id])     # ← 自分の投稿だけ拾う
     @shop.destroy
       redirect_to shops_path, status: :see_other, notice: "User was successfully destroyed."
   end

@@ -2,11 +2,11 @@ class Shop < ApplicationRecord
   geocoded_by :address
   after_validation :geocode, if: :will_save_change_to_address?
 
+  belongs_to :user
   belongs_to :category, optional: true
   has_many :favorites, dependent: :destroy
   has_many :users, through: :favorites
-  has_many_attached :images
-  
+  has_many_attached :images  
   has_many :shop_scenes, dependent: :destroy
   has_many :scenes, through: :shop_scenes
 
