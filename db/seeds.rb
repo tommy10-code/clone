@@ -17,3 +17,10 @@ Category.create!(name: "バー・ダイニングバー")
 Category.create!(name: "ビストロ")
 Category.create!(name: "パンケーキ・スイーツ系")
 Category.create!(name: "居酒屋・創作料理")
+
+scenes = %w[初デート 2回目以降 記念日 サク飯 静かに話せる 大人っぽい]
+scenes.each do |n|
+  Scene.find_or_create_by!(name: n) do |s|
+    s.slug = n.parameterize # slug使うなら
+  end
+end
