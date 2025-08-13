@@ -41,6 +41,16 @@
     <p class="font-bold">カテゴリ <span class="text-red-500">*</span></p>
     <p class="text-lg"> <%= @shop.category&.name || "" %> </p>
   </div>
+  
+  <!-- デートシーン -->
+  <div class="mb-4">
+    <p class="font-bold">デートシーン <span class="text-red-500">*</span></p>
+      <% if @shop.scenes.any? %>
+        <%= @shop.scenes.order(:name).map(&:name).join(" / ") %>
+      <% else %>
+        未設定
+      <% end %>
+  </div>
 
   <!-- お店の画像 -->
   <div class="mb-6">

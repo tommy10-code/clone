@@ -5,18 +5,19 @@
   
 
   <!-- 左側：検索窓 -->
-  <%= search_form_for @q,
-                    url: shops_path,
-                    method: :get,
-                    local: true,
-                    data: { turbo: false } do |f| %>
-      <div class="flex items-center space-x-2 mb-4">
-        <div>
-          <%= f.label :category_id_eq, "カテゴリ検索" %>
-          <%= f.collection_select :category_id_eq, Category.all, :id, :name, { include_blank: "すべて" }, class: "border px-4 py-2 rounded w-full bg-white" %>
-        </div>
+  <%= search_form_for @q, url: shops_path, method: :get, local: true, data: { turbo: false } do |f| %>
+    <div class="flex items-center space-x-2 mb-4">
+      <div>
+        <%= f.label :category_id_eq, "カテゴリ検索" %>
+        <%= f.collection_select :category_id_eq, Category.all, :id, :name, { include_blank: "すべて" }, class: "border px-4 py-2 rounded w-full bg-white" %>
+      </div>
 
-    <!-- キーワード検索（幅を広げる） -->
+      <div>
+        <%= f.label :scenes_id_eq, "デートシーン検索" %>
+        <%= f.collection_select :scenes_id_eq, Scene.all, :id, :name, { include_blank: "すべて" }, class: "border px-4 py-2 rounded w-full bg-white" %>
+      </div>
+
+  <!-- キーワード検索（幅を広げる） -->
       <div class="flex flex-col flex-grow">
         <%= f.label :title_or_address_cont, "キーワード検索" %>
         <div class="flex space-x-2 w-full">
@@ -24,9 +25,9 @@
           <%= f.submit "検索", class: "bg-blue-500 text-white px-4 py-2 rounded whitespace-nowrap" %>
         </div>
       </div>
-      </div>
-    <% end %>
-    
+    </div>
+  <% end %>
+
   </div>
 
   <!-- 右側：お店一覧（地図と高さ合わせる） -->
@@ -167,7 +168,8 @@
             url: googleSearchUrl,
             detail: "<%= j shop_path(shop) %>", 
             la: <%= shop.latitude %>,
-            ln: <%= shop.longitude %>
+            ln: <%= shop.longitude %>,
+            scn: <%= raw shop.scenes.order(:name).pluck(:name).to_json %>
           });
         })();
       <% end %>
@@ -190,7 +192,13 @@
           <a href="${s.detail}" target="_blank" rel="noopener noreferrer"
          class="text-inherit hover:text-blue-600 hover:underline">${s.t}</a>
          </div>
+
           ${s.cat ? `<div style="font-size:12px; color:#6b7280; margin-bottom:6px;">カテゴリ: ${s.cat}</div>` : ""}
+
+          ${(s.scn && s.scn.length)
+          ? `<div style="font-size:12px; color:#6b7280; margin-bottom:8px;">シーン: ${s.scn.join(" / ")}</div>`
+          : ""}
+
           <a href="${s.url}" target="_blank" rel="noopener"
              style="display:inline-block; background:#2563eb; color:#fff; padding:4px 8px; border-radius:4px; font-size:12px; text-decoration:none;">
             Googleで検索

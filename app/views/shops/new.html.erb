@@ -11,15 +11,20 @@
     <%= form.text_field :address, class: "w-full border border-gray-300 rounded px-3 py-2" %>
 </div>
 
-<div class="mb-4">
-  <%= form.label :scene_id, "カテゴリ" %>
-  <%= form.collection_select :scene_id, Category.all, :id, :name, prompt: "カテゴリを選択" %>
-</div>
+  <div class="mb-4">
+    <%= form.label :category_id, "カテゴリ" %>
+    <%= form.collection_select :category_id, Category.all, :id, :name, prompt: "カテゴリを選択" %>
+  </div>
 
-<div class="mb-4">
-  <%= form.label :, "カテゴリ" %>
-  <%= form.collection_select :category_id, Category.all, :id, :name, prompt: "カテゴリを選択" %>
-</div>
+  <div class="mb-4">
+    <label class="block font-semibold mb-1">デートシーン</label>
+    <%= form.collection_check_boxes :scene_ids, Scene.order(:name), :id, :name do |b| %>
+      <label class="inline-flex items-center mr-4">
+        <%= b.check_box %>
+        <span class="ml-1"><%= b.text %></span>
+      </label>
+    <% end %>
+  </div>
 
   <div class="mb-4">
     <%= form.label :images, "お店の画像" %>
