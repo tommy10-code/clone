@@ -3,7 +3,7 @@ class User < ApplicationRecord
           :recoverable, :rememberable, :validatable
 
   validates :name, presence: true
-
+  has_many :shops, dependent: :nullify
   has_many :favorites, dependent: :destroy
   has_many :favorite_shops, through: :favorites, source: :shop
 
