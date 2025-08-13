@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  shop: one
+  scene: one
+  votes_count: 1
+
+two:
+  shop: two
+  scene: two
+  votes_count: 1

@@ -3,7 +3,7 @@ class ShopsController < ApplicationController
 
   def index
     @q = Shop.ransack(params[:q])
-    @shops = @q.result.order(created_at: :desc)
+    @shops = @q.result.includes(:category, :scenes).order(created_at: :desc)
   end
 
   def show
@@ -45,6 +45,6 @@ class ShopsController < ApplicationController
 
   private
   def shop_params
-    params.require(:shop).permit(:title, :address, :latitude, :longitude, :category_id, :page, images: [] )
+    params.require(:shop).permit(:title, :address, :latitude, :longitude, :category_id, :page, images: [], scene_ids: [] )
   end
 end
