@@ -2,13 +2,13 @@
   <!-- 左：ロゴ -->
   <% if user_signed_in? %> 
   <div>
-    <%= link_to "ロゴ", shops_path, data: { turbo: false }, class: "hover:text-primary"%>
-        <%#= image_tag "logo.png", alt: "ロゴ画像", width: 200%>
-      <%# end %>
+    <%= link_to shops_path, data: { turbo: false }, class: "hover:text-primary" do %>
+        <%= image_tag "logo.png", alt: "ロゴ画像", width: 95 %>
+      <% end %>
     <% else %>
-      <%= link_to "ロゴ", root_path, data: { turbo: false }, class: "hover:text-primary" %>
-        <%#= image_tag "logo.png", alt: "ロゴ画像" %>
-      <%# end %>
+      <%= link_to root_path, data: { turbo: false }, class: "hover:text-primary" do %>
+        <%= image_tag "logo.png", alt: "ロゴ画像", width: 95 %>
+      <% end %>
     <% end %>
   </div>
 
