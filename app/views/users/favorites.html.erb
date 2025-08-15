@@ -51,6 +51,8 @@
         </h3>
           <p class="text-sm text-gray-600">
             カテゴリ: <%= shop.category&.name || "" %></p>
+          <p class="text-sm text-gray-600">
+            シーン: <%= shop.scenes.present? ? shop.scenes.map(&:name).join(" / ") : "" %></p>
           <div class="flex">
             <%= link_to "お店詳細", shop_path(shop), target: "_blank", rel: "noopener noreferrer", class: "inline-block mt-1 text-sm text-black bg-yellow-300 hover:bg-yellow-500 px-3 py-1 rounded" %>
             <%= render 'shops/bookmark_button', shop: shop %>

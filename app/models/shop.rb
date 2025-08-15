@@ -20,7 +20,7 @@ class Shop < ApplicationRecord
   end
 
   def self.ransackable_associations(auth_object = nil)
-  %w[scenes shop_scenes]
+  %w[scenes shop_scenes category]
   end
 
   private
