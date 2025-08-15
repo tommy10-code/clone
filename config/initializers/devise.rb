@@ -1,7 +1,7 @@
 
 Devise.setup do |config|
 
-  config.mailer_sender = ENV.fetch('MAIL_FROM')
+  config.mailer_sender = ENV['MAIL_FROM'] || 'no-reply@example.com'
 
   require 'devise/orm/active_record'
 
