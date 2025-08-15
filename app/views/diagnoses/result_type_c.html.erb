@@ -6,7 +6,7 @@
     <p class="text-xl font-semibold mb-2">おすすめカテゴリー</p>
     <p class="text-lg">「ビストロ」</p>
 
-    <%= link_to "おすすめカテゴリーをmapで見る", shops_path(q: { category_id_eq: 42 }), class: "inline-block mt-4 px-6 py-3 bg-[#D5A273] text-white font-semibold rounded hover:bg-[#b77f53]" %>
+    <%= link_to "おすすめカテゴリーをmapで見る", shops_path(q: { category_name_eq: "ビストロ" }), class: "inline-block mt-4 px-6 py-3 bg-[#D5A273] text-white font-semibold rounded hover:bg-[#b77f53]" %>
   </div>
 
   <div class="mb-10">
@@ -14,6 +14,8 @@
     <p class="text-lg">「BISTRO N°1 -名駅店-」</p>
     <p class="text-lg">いつもとは違う雰囲気で乾杯</p>
 
-    <%= link_to "お店詳細", shop_path(59), class: "inline-block mt-4 px-6 py-3 bg-[#D5A273] text-white font-semibold rounded hover:bg-[#b77f53]" %>
+  <% if shop = Shop.find_by(title: "BISTRO N°1 -名駅店-") %>
+    <%= link_to "お店詳細", shop_path(shop), class: "inline-block mt-4 px-6 py-3 bg-[#D5A273] text-white font-semibold rounded hover:bg-[#b77f53]" %>
+  <% end %>
   </div>
 </div>

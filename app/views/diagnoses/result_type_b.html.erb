@@ -8,7 +8,7 @@
     <p class="text-xl font-semibold mb-2">おすすめカテゴリー</p>
     <p class="text-lg">「フレンチ」</p>
 
-    <%= link_to "おすすめカテゴリーをmapで見る", shops_path(q: { category_id_eq: 36 }), class: "inline-block mt-4 px-6 py-3 bg-[#D5A273] text-white font-semibold rounded hover:bg-[#b77f53]" %>
+    <%= link_to "おすすめカテゴリーをmapで見る", shops_path(q: { category_name_eq: "フレンチ" }), class: "inline-block mt-4 px-6 py-3 bg-[#D5A273] text-white font-semibold rounded hover:bg-[#b77f53]" %>
   </div>
 
   <div class="mb-10">
@@ -16,6 +16,8 @@
     <p class="text-lg">「Casual Dining Iris（アイリス）」</p>
     <p class="text-lg">落ち着いた店内でゆったり会話ができる！</p>
 
-    <%= link_to "お店詳細", shop_path(47), class: "inline-block mt-4 px-6 py-3 bg-[#D5A273] text-white font-semibold rounded hover:bg-[#b77f53]" %>
+    <% if shop = Shop.find_by(title: "Casual Dining Iris（アイリス）") %>
+      <%= link_to "お店詳細", shop_path(shop), class: "inline-block mt-4 px-6 py-3 bg-[#D5A273] text-white font-semibold rounded hover:bg-[#b77f53]" %>
+    <% end %>
   </div>
 </div>
