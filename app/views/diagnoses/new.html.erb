@@ -1,6 +1,6 @@
 <div class="mt-10 max-w-2xl mx-auto bg-white p-8 rounded shadow-md">
   <h2 class="text-2xl text-center mb-6 font-bold">次に会うお相手に当てはまるのは？</h2>
-  <h2 class=" text-xm text-center mb-6 font-bold text-gray-400">1つ選んでください</h2>
+  <h2 class=" text-xm text-center mb-6 font-bold text-red-400">1つ選んでください</h2>
 
   <%= form_with url: diagnosis_result_path, method: :post, local: true, data: { turbo: false } do |f| %>
     <% [
