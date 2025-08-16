@@ -1,34 +1,33 @@
+<div class="flex justify-center pt-10">
+  <div class="w-full max-w-md bg-white rounded-xl shadow-lg p-8">
+    <h2 class="text-2xl text-center mb-6 font-bold">ログイン</h2>
+    <%= form_with url: user_session_path, scope: :user, local: true do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="flex justify-center pt-10">
-    <div class="w-full max-w-md bg-white rounded-xl shadow-lg p-8">
-      <h2 class="text-2xl text-center mb-6 font-bold">ログイン</h2>
-      <%= form_with url: user_session_path, scope: :user, local: true do |f| %>
-        <div class="mb-4">
-        <%= render "devise/shared/error_messages", resource: resource %>
+      <div class="mb-4">
+        <%= f.label :email, class: "block text-xl font-medium mb-1" %>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "w-full border border-gray-300 rounded px-4 py-2 text-lg" %>
+      </div>
 
-          <%= f.label :email, class: "block text-xl font-medium mb-1" %>
-          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "w-full border border-gray-300 rounded px-4 py-2 text-lg" %>
-        </div>
+      <div class="field">
+        <%= f.label :password, class: "block text-xl font-medium mb-1"%>
+        <%= f.password_field :password, autocomplete: "current-password", class: "w-full border border-gray-300 rounded px-4 py-2 text-lg" %>
+      </div>
 
-        <div class="field">
-          <%= f.label :password, class: "block text-xl font-medium mb-1"%>
-          <%= f.password_field :password, autocomplete: "current-password", class: "w-full border border-gray-300 rounded px-4 py-2 text-lg" %>
-        </div>
-
-        <% if devise_mapping.rememberable? %>
-          <div class="mb-4 flex items-center ">
-            <%= f.check_box :remember_me, class: "mr-2" %>
-            <%= f.label :remember_me, class: "text-xl" %>
-          </div>
-        <% end %>
-
-        <div class="actions flex justify-center mt-4">
-          <%= f.submit t('header.login'), class: "btn btn-primary" %>
+      <% if devise_mapping.rememberable? %>
+        <div class="mb-4 flex items-center ">
+          <%= f.check_box :remember_me, class: "mr-2" %>
+          <%= f.label :remember_me, class: "text-xl" %>
         </div>
       <% end %>
 
-      <div class="mt-2 text-center">
-        <%= render "devise/shared/links" %>
+      <div class="actions flex justify-center mt-4">
+        <%= f.submit t('header.login'), class: "btn btn-primary" %>
       </div>
+    <% end %>
+
+    <div class="mt-2 text-center">
+      <%= render "devise/shared/links" %>
     </div>
   </div>
+</div>
