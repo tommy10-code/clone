@@ -1,3 +1,4 @@
+# config/locales/ja.yml
 ja:
   activerecord:
     models:
@@ -8,8 +9,15 @@ ja:
         name: ユーザーネーム
         password: パスワード
         password_confirmation: パスワード確認
-      shop:
-        title: 店名
-        address: 住所
-        category_id: カテゴリー
-        scenes: デートシーン
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              taken: "を登録できませんでした。すでにご登録済みか、入力内容に誤りがあります"
+
+    shop:
+      title: 店名
+      address: 住所
+      category_id: カテゴリー
+      scenes: デートシーン

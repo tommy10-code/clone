@@ -4,7 +4,7 @@
     <h2 class="text-2xl text-center mb-6 font-bold">会員登録</h2>
     <%= form_with url: user_registration_path, scope: :user, local: true do |f| %>
       <%= render "devise/shared/error_messages", resource: resource %>
-      
+
       <div class="mb-4">
         <%= f.label :name, class: "block text-xl font-medium mb-1"  %>
         <%= f.text_field :name, class: "w-full border border-gray-300 rounded px-4 py-2 text-lg" %>
@@ -19,8 +19,6 @@
         <%= f.label :"パスワード 6文字以上必須", class: "block text-xl font-medium mb-1"%>
         <%= f.password_field :password, autocomplete: "current-password", class: "w-full border border-gray-300 rounded px-4 py-2 text-lg" %>
       </div>
-
-
 
       <div class="field">
         <%= f.label :"パスワード再確認", class: "block text-xl font-medium mb-1"%>
