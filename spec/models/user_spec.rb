@@ -22,7 +22,16 @@ RSpec.describe User, type: :model do
     end
 
     it "メールアドレス登録重複禁止" do
-      create(:user, email: "test@")
+      create(:user, email: "test@example.com")
+      user = User.new(email: "test@example.com")
+      expect(user).to be_invalid
+      expect(user.errors[:email]).to include("を登録できませんでした。すでにご登録済みか、入力内容に誤りがあります")
+    end
+
+    it  "パスワード５文字以下でエラー" do
+      user = build(:user, password: "aaaaa")
+      expect(user).to be_invalid
+      expect(user.errors[:password]).to include("は6文字以上で入力してください")
     end
   end
 end
