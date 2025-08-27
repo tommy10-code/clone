@@ -65,8 +65,12 @@ COPY --from=build /rails /rails
 # Run and own only the runtime files as a non-root user for security
 RUN groupadd --system --gid 1000 rails && \
     useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash && \
-    chown -R rails:rails db log storage tmp
-USER 1000:1000
+    # 👇 Rails が起動時に必要とするディレクトリを必ず作成
+    # （.dockerignoreで除外していても安全に存在するようにする）
+    mkdir -p /rails/db /rails/log /rails/tmp/pids /rails/tmp/sockets /rails/storage && \
+    \
+    # 👇 作成したディレクトリの所有者を rails ユーザーに変更
+    chown -R rails:rails /rails/db /rails/log /rails/tmp /rails/storage
 
 # Entrypoint prepares the database.
 ENTRYPOINT ["/rails/bin/docker-entrypoint"]
