@@ -1,3 +1,5 @@
+# まずはmodel specを10個 userとshop5個ずつ
+
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
