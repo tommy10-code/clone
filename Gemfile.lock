@@ -150,6 +150,8 @@ GEM
     factory_bot_rails (6.5.0)
       factory_bot (~> 6.5)
       railties (>= 6.1.0)
+    faker (3.5.2)
+      i18n (>= 1.8.11, < 2)
     ffi (1.17.2-aarch64-linux-gnu)
     ffi (1.17.2-aarch64-linux-musl)
     ffi (1.17.2-arm-linux-gnu)
@@ -448,6 +450,7 @@ DEPENDENCIES
   devise-i18n
   dotenv-rails
   factory_bot_rails
+  faker
   geocoder
   image_processing (~> 1.2)
   importmap-rails
