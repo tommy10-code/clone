@@ -3,8 +3,8 @@
   "private": true,
   "devDependencies": {
     "daisyui": "^5.0.50",
-    "esbuild": "^0.25.8",
-    "tailwindcss": "^4.1.11"
+    "esbuild": "^0.25.9",
+    "tailwindcss": "^4.1.12"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --format=esm --outdir=app/assets/builds --public-path=/assets",

@@ -1,12 +1,12 @@
 services:
   db:
-    image: postgres
+    image: postgres:17
     restart: always
     environment:
       TZ: Asia/Tokyo
       POSTGRES_PASSWORD: password
     volumes:
-      - postgresql_data:/var/lib/postgresql
+      - postgresql_data:/var/lib/postgresql/data
     ports:
       - 5432:5432
     healthcheck:
