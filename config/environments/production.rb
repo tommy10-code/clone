@@ -10,6 +10,15 @@ Rails.application.configure do
 
   config.assets.compile = false
 
+    # Sprockets が app/assets/builds を探せるようにする
+  config.assets.paths << Rails.root.join("app/assets/builds")
+
+  # Render で静的ファイル配信を有効化する
+  config.public_file_server.enabled = ENV["RAILS_SERVE_STATIC_FILES"].present?
+
+  # Tailwind を使っている場合は圧縮器を無効化するのが無難
+  config.assets.css_compressor = nil
+
   config.active_storage.service = :amazon
 
 
