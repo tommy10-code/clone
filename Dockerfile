@@ -53,9 +53,8 @@ RUN bundle exec bootsnap precompile app/ lib/
 # Rails の assets:precompile を実行する。
 RUN yarn run build \
  && yarn run build:css \
- && ls -al app/assets/builds \   # デバッグ: application.css の存在をログで可視化
+ && ls -al app/assets/builds \
  && SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
-
 
 RUN rm -rf node_modules
 
