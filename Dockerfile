@@ -48,9 +48,13 @@ COPY . .
 # Precompile bootsnap code for faster boot times
 RUN bundle exec bootsnap precompile app/ lib/
 
-# Precompiling assets for production without requiring secret RAILS_MASTER_KEY
-RUN SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
-
+# ---- Build JS/CSS → Precompile Rails assets（ここが今回のキモ）----
+# Tailwind v4 / esbuild の成果物を app/assets/builds に出した後、
+# Rails の assets:precompile を実行する。
+RUN yarn run build \
+ && yarn run build:css \
+ && ls -al app/assets/builds \
+ && SECRET_KEY_BASE_DUMMY=1 ./bin/rails assets:precompile
 
 RUN rm -rf node_modules
 
@@ -65,7 +69,14 @@ COPY --from=build /rails /rails
 # Run and own only the runtime files as a non-root user for security
 RUN groupadd --system --gid 1000 rails && \
     useradd rails --uid 1000 --gid 1000 --create-home --shell /bin/bash && \
-    chown -R rails:rails db log storage tmp
+    # 👇 Rails が起動時に必要とするディレクトリを必ず作成
+    # （.dockerignoreで除外していても安全に存在するようにする）
+    mkdir -p /rails/db /rails/log /rails/tmp/pids /rails/tmp/sockets /rails/storage && \
+    \
+    # 👇 作成したディレクトリの所有者を rails ユーザーに変更
+    chown -R rails:rails /rails/db /rails/log /rails/tmp /rails/storage
+
+# 👇 ここを必ず入れる（非rootで実行）
 USER 1000:1000
 
 # Entrypoint prepares the database.
