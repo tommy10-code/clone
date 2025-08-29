@@ -39,10 +39,8 @@
 
 /node_modules
 /vendor/bundle
+!/app/assets/builds/application.css  # テスト用のダミーCSSだけ許可
 
 .DS_Store
 .vscode/*
 
-/app/assets/builds/*        # builds配下は基本無視
-!/app/assets/builds/.keep   # ディレクトリ維持用
-!/app/assets/builds/application.css  # テスト用のダミーCSSだけ許可
