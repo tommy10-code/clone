@@ -39,6 +39,8 @@
 
 /node_modules
 /vendor/bundle
+!/app/assets/builds/application.css  # テスト用のダミーCSSだけ許可
 
 .DS_Store
 .vscode/*
+

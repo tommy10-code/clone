@@ -1,5 +1,5 @@
 class ShopsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!, except: [ :index, :show ]
 
   def index
     @q = Shop.ransack(params[:q])
@@ -19,7 +19,7 @@ class ShopsController < ApplicationController
     if @shop.save
       redirect_to shops_path, notice: "お店を登録しました", status: :see_other
     else
-      render :new, status: :unprocessable_entity 
+      render :new, status: :unprocessable_entity
     end
   end
 
@@ -45,6 +45,6 @@ class ShopsController < ApplicationController
 
   private
   def shop_params
-    params.require(:shop).permit(:title, :address, :latitude, :longitude, :category_id, :page, images: [], scene_ids: [] )
+    params.require(:shop).permit(:title, :address, :latitude, :longitude, :category_id, :page, images: [], scene_ids: [])
   end
 end

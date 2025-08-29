@@ -1,15 +1,15 @@
 Rails.application.routes.draw do
   devise_for :users
   root "home#index"
-  resources :users, only: [:index, :show]
+  resources :users, only: [ :index, :show ]
   resources :shops do
-    resource :favorites, only: [:create, :destroy]
+    resource :favorites, only: [ :create, :destroy ]
   end
   authenticated :user do
-    root to: 'shops#index', as: :authenticated_root
+    root to: "shops#index", as: :authenticated_root
   end
 
-  get '/favorites', to: 'users#favorites'
+  get "/favorites", to: "users#favorites"
   get "diagnoses/new"
   post "diagnosis/result", to: "diagnoses#result", as: :diagnosis_result
 

@@ -64,4 +64,12 @@ Rails.application.configure do
 
   # Raise error when a before_action's only/except options reference missing actions.
   config.action_controller.raise_on_missing_callback_actions = true
+
+
+  # Tailwind ビルド成果物を assets に含める
+  config.assets.paths << Rails.root.join("app/assets/builds")
+  config.assets.css_compressor = nil
+
+  # config/environments/test.rb に追加
+  config.google_maps_enabled = false
 end

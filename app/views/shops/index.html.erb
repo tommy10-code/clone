@@ -64,9 +64,11 @@
 </div>
 
 
-<script async defer
-  src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&callback=initMap">
-</script>
+<% unless Rails.env.test? %>
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&callback=initMap">
+  </script>
+<% end %>
 
 <script>
   const RED_ICON  = "https://maps.google.com/mapfiles/ms/icons/red-dot.png";
