@@ -11,32 +11,63 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: コードをチェックアウト
+      - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Docker Composeでサービスを起動
-        run: docker compose -f docker-compose.ci.yml up -d
-
-      - name: Dockerコンテナの起動を待機
+      # まずは普通の compose を使う（-f は外す）
+      - name: Build images
         run: |
-          echo "コンテナの起動を待機中..."
-          sleep 10
-          docker compose -f docker-compose.ci.yml ps
+          docker compose pull || true
+          docker compose build
 
-      - name: Bundlerのインストール
-        run: docker compose -f docker-compose.ci.yml exec -T web bundle install
-
-      - name: データベースのセットアップ
+      # DBだけ先に起動して待機
+      - name: Start DB and wait
         run: |
-          docker compose -f docker-compose.ci.yml exec -T web rails db:create
-          docker compose -f docker-compose.ci.yml exec -T web rails db:migrate
+          docker compose up -d db
+          for i in {1..30}; do
+            docker compose exec -T db pg_isready -U "${PGUSER:-postgres}" && break
+            sleep 2
+          done
 
-      - name: RuboCopでコード品質チェック
-        run: docker compose -f docker-compose.ci.yml exec -T web bundle exec rubocop
+      # bundle install（dev/testも入れる）
+      - name: Bundle install
+        run: |
+          docker compose run --rm \
+            -e BUNDLE_WITH="development test" \
+            -e BUNDLE_WITHOUT="" \
+            web bundle install --jobs 4
 
-      - name: RSpecでテスト実行
-        run: docker compose -f docker-compose.ci.yml exec -T web bundle exec rspec
+      # DB準備（test）… db:create/migrate をまとめて安全に
+      - name: DB prepare (test)
+        run: docker compose run --rm -e RAILS_ENV=test web bundle exec rails db:prepare
 
-      - name: コンテナの停止とクリーンアップ
+      # RuboCop（未導入ならスキップ）
+      - name: RuboCop
+        run: |
+          docker compose run --rm web bash -lc '
+            if bundle show rubocop > /dev/null 2>&1; then
+              bundle exec rubocop --parallel
+            else
+              echo "rubocop not installed; skipping"
+            fi
+          '
+
+      # RSpec
+      - name: RSpec
+        run: docker compose run --rm -e RAILS_ENV=test web bundle exec rspec --format progress
+
+      # 失敗時のログ確保
+      - name: Upload artifacts on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rspec-artifacts
+          path: |
+            log/test.log
+            tmp/capybara
+            coverage
+
+      # 終了処理
+      - name: Compose down
         if: always()
-        run: docker compose -f docker-compose.ci.yml down -v
+        run: docker compose down -v
