@@ -14,6 +14,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Create .env for CI (temporary)
+        run: printf "" > .env
+
       # まずは普通の compose を使う（-f は外す）
       - name: Build images
         run: |
