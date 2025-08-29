@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: コードをチェックアウト
+        uses: actions/checkout@v4
+
+      - name: Docker Composeでサービスを起動
+        run: docker compose -f docker-compose.ci.yml up -d
+
+      - name: Dockerコンテナの起動を待機
+        run: |
+          echo "コンテナの起動を待機中..."
+          sleep 10
+          docker compose -f docker-compose.ci.yml ps
+
+      - name: Bundlerのインストール
+        run: docker compose -f docker-compose.ci.yml exec -T web bundle install
+
+      - name: データベースのセットアップ
+        run: |
+          docker compose -f docker-compose.ci.yml exec -T web rails db:create
+          docker compose -f docker-compose.ci.yml exec -T web rails db:migrate
+
+      - name: RuboCopでコード品質チェック
+        run: docker compose -f docker-compose.ci.yml exec -T web bundle exec rubocop
+
+      - name: RSpecでテスト実行
+        run: docker compose -f docker-compose.ci.yml exec -T web bundle exec rspec
+
+      - name: コンテナの停止とクリーンアップ
+        if: always()
+        run: docker compose -f docker-compose.ci.yml down -v

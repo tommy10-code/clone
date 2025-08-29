@@ -38,30 +38,30 @@ gem "bootsnap", require: false
 
 gem "aws-sdk-s3", require: false
 
-gem 'devise'
-gem 'devise-i18n'
-gem 'rails-i18n', '~> 7.0.0'
-gem 'geocoder'
+gem "devise"
+gem "devise-i18n"
+gem "rails-i18n", "~> 7.0.0"
+gem "geocoder"
 gem "importmap-rails"
-gem 'ransack'
+gem "ransack"
 gem "image_processing", "~> 1.2"
-gem 'kaminari'
+gem "kaminari"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"
   gem "brakeman", require: false
   gem "rubocop-rails-omakase", require: false
-  gem 'dotenv-rails'
-  gem 'rspec-rails'
-  gem 'factory_bot_rails'
-  gem 'faker'
+  gem "dotenv-rails"
+  gem "rspec-rails"
+  gem "factory_bot_rails"
+  gem "faker"
 end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
-  gem 'annotate'
-  gem 'letter_opener_web', '~> 3.0'
+  gem "annotate"
+  gem "letter_opener_web", "~> 3.0"
 end
 
 group :test do

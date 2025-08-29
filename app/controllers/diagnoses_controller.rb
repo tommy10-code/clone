@@ -13,7 +13,7 @@ class DiagnosesController < ApplicationController
     when "2"
       render "result_type_c"
     else
-      redirect_to diagnoses_new_path , alert: "診断を選択してください"
+      redirect_to diagnoses_new_path, alert: "診断を選択してください"
     end
   end
 end

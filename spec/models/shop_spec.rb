@@ -4,7 +4,7 @@ RSpec.describe Shop, type: :model do
   describe "バリデーション" do
     it "全ての情報を入力して登録ができるのか？" do
       user = create(:user)
-      shop = Shop.new(title:"aaa", address:"aaa", category_id: 10, user: user)
+      shop = Shop.new(title: "aaa", address: "aaa", category_id: 10, user: user)
       expect(shop).to be_valid
     end
 

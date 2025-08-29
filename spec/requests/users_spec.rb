@@ -1,11 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe "Users", type: :request do
-  let(:name) { "太郎"}
-  let(:password) { "password123!"}
-  let(:email) {"tester@example.com"}
+  let(:name) { "太郎" }
+  let(:password) { "password123!" }
+  let(:email) { "tester@example.com" }
   describe "トップページ各ページが表示できるか" do
-
     # 失敗系サインアップの共通処理
     def user_request_spec(overrides = {})
       base = {
@@ -15,8 +14,8 @@ RSpec.describe "Users", type: :request do
         password_confirmation: password
       }
 
-      expect{post user_registration_path, params: {user: base.merge(overrides)}}.not_to change(User, :count)
-      expect([200, 422]).to include(response.status)
+      expect { post user_registration_path, params: { user: base.merge(overrides) } }.not_to change(User, :count)
+      expect([ 200, 422 ]).to include(response.status)
     end
 
       it "会員登録ページが表示される" do
@@ -33,13 +32,13 @@ RSpec.describe "Users", type: :request do
 
     context "有効なパラメータの時" do
       it "会員登録ができるか" do
-        expect{
-          post user_registration_path, params:{
+        expect {
+          post user_registration_path, params: {
             user: {
               name: "テスト",
               email: "tester@example.com",
               password: "password",
-              password_confirmation: "password",
+              password_confirmation: "password"
             }
           }
         }.to change(User, :count).by(1)
