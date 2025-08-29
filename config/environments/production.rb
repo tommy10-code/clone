@@ -9,9 +9,6 @@ Rails.application.configure do
 
   config.assets.compile = false
 
-  config.active_storage.service = :amazon
-
-
   config.force_ssl = true
 
   config.logger = ActiveSupport::Logger.new(STDOUT)
