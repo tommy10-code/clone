@@ -64,4 +64,28 @@ Rails.application.configure do
 
   # Raise error when a before_action's only/except options reference missing actions.
   config.action_controller.raise_on_missing_callback_actions = true
+
+  # === Geocoder: testでは外部APIに出さない ===
+  if defined?(Geocoder)
+    Geocoder.configure(
+      lookup: :test,     # 住所→緯度経度 もスタブ
+      ip_lookup: :test   # IP→位置情報 もスタブ
+    )
+
+    # 既定の返り値（必要に応じて値を変えてOK）
+    Geocoder::Lookup::Test.set_default_stub(
+      [
+        {
+          'coordinates' => [35.681236, 139.767125], # 東京駅あたり
+          'address'     => 'Stubbed Address',
+          'city'        => 'Chiyoda',
+          'country'     => 'Japan'
+        }
+      ]
+    )
+  end
+
+  # Tailwind ビルド成果物を assets に含める
+  config.assets.paths << Rails.root.join("app/assets/builds")
+  config.assets.css_compressor = nil
 end
