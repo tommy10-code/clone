@@ -76,10 +76,10 @@ Rails.application.configure do
     Geocoder::Lookup::Test.set_default_stub(
       [
         {
-          'coordinates' => [35.681236, 139.767125], # 東京駅あたり
-          'address'     => 'Stubbed Address',
-          'city'        => 'Chiyoda',
-          'country'     => 'Japan'
+          "coordinates" => [ 35.681236, 139.767125 ], # 東京駅あたり
+          "address"     => "Stubbed Address",
+          "city"        => "Chiyoda",
+          "country"     => "Japan"
         }
       ]
     )
