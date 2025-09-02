@@ -1,7 +1,6 @@
 require "active_support/core_ext/integer/time"
 
 Rails.application.configure do
-
   config.enable_reloading = false
   config.eager_load = true
 
@@ -10,7 +9,7 @@ Rails.application.configure do
 
   config.assets.compile = false
 
-    # Sprockets が app/assets/builds を探せるようにする
+  # Sprockets が app/assets/builds を探せるようにする
   config.assets.paths << Rails.root.join("app/assets/builds")
 
   # Render で静的ファイル配信を有効化する
@@ -21,12 +20,11 @@ Rails.application.configure do
 
   config.active_storage.service = :amazon
 
-
   config.force_ssl = true
 
   config.logger = ActiveSupport::Logger.new(STDOUT)
-    .tap  { |logger| logger.formatter = ::Logger::Formatter.new }
-    .then { |logger| ActiveSupport::TaggedLogging.new(logger) }
+  .tap  { |logger| logger.formatter = ::Logger::Formatter.new }
+  .then { |logger| ActiveSupport::TaggedLogging.new(logger) }
 
   # Prepend all log lines with the following tags.
   config.log_tags = [ :request_id ]
@@ -41,18 +39,18 @@ Rails.application.configure do
   config.active_storage.service = :amazon
 
   config.action_mailer.default_url_options = {
-    host: 'clone-j607.onrender.com',
-    protocol: 'https'
+  host: "clone-j607.onrender.com",
+  protocol: "https"
   }
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address:              "smtp.sendgrid.net",
-    port:                 587,
-    domain:               "clone-j607.onrender.com",
-    user_name:            ENV["SENDGRID_USERNAME"],
-    password:             ENV["SENDGRID_PASSWORD"],
-    authentication:       "plain",
-    enable_starttls_auto: true
+  address:              "smtp.sendgrid.net",
+  port:                 587,
+  domain:               "clone-j607.onrender.com",
+  user_name:            ENV["SENDGRID_USERNAME"],
+  password:             ENV["SENDGRID_PASSWORD"],
+  authentication:       "plain",
+  enable_starttls_auto: true
   }
 end

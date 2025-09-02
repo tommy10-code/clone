@@ -12,7 +12,7 @@ RSpec.describe User, type: :model do
     it "名前がないと登録できない" do
       user = build(:user, name: nil)
       expect(user).to be_invalid
-      expect(user.errors[:name]).to  include("を入力してください")
+      expect(user.errors[:name]).to include("を入力してください")
     end
 
     it "メールアドレス必須" do
@@ -28,7 +28,7 @@ RSpec.describe User, type: :model do
       expect(user.errors[:email]).to include("を登録できませんでした。すでにご登録済みか、入力内容に誤りがあります")
     end
 
-    it  "パスワード５文字以下でエラー" do
+    it "パスワード５文字以下でエラー" do
       user = build(:user, password: "aaaaa")
       expect(user).to be_invalid
       expect(user.errors[:password]).to include("は6文字以上で入力してください")

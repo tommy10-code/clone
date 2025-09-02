@@ -1,0 +1,88 @@
+name: CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create .env for CI (temporary)
+        run: printf "GOOGLE_MAPS_API_KEY=dummy_key_for_test\n" > .env
+
+      # まずは普通の compose を使う（-f は外す）
+      - name: Build images
+        run: |
+          docker compose pull || true
+          docker compose build
+
+      # DBだけ先に起動して待機
+      - name: Start DB and wait
+        run: |
+          docker compose up -d db
+          for i in {1..30}; do
+            docker compose exec -T db pg_isready -U "${PGUSER:-postgres}" && break
+            sleep 2
+          done
+
+      # bundle install（dev/testも入れる）
+      - name: Bundle install
+        run: |
+          docker compose run --rm \
+            -e BUNDLE_WITH="development test" \
+            -e BUNDLE_WITHOUT="" \
+            web bundle install --jobs 4
+
+      # アセット関連ディレクトリの作成（エラー対策）
+      - name: Create assets directories
+        run: |
+          mkdir -p app/assets/builds
+          touch app/assets/builds/.keep
+
+      # DB準備（test）… db:create/migrate をまとめて安全に
+      - name: DB prepare (test)
+        run: docker compose run --rm -e RAILS_ENV=test web bundle exec rails db:prepare
+
+      # アセットのプリコンパイル（エラー対策）
+      - name: Assets precompile
+        run: docker compose run --rm -e RAILS_ENV=test web bundle exec rails assets:precompile
+
+      # RuboCop（未導入ならスキップ）
+      - name: RuboCop
+        run: |
+          docker compose run --rm web bash -lc '
+            if bundle show rubocop > /dev/null 2>&1; then
+              bundle exec rubocop --parallel
+            else
+              echo "rubocop not installed; skipping"
+            fi
+          '
+
+      # RSpec（Google Maps API対策込み）
+      - name: RSpec
+        env:
+          GOOGLE_MAPS_API_KEY: dummy_key_for_test
+        run: docker compose run --rm -e RAILS_ENV=test web bundle exec rspec --format progress
+
+      # 失敗時のログ確保
+      - name: Upload artifacts on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rspec-artifacts
+          path: |
+            log/test.log
+            tmp/capybara
+            coverage
+
+      # 終了処理
+      - name: Compose down
+        if: always()
+        run: docker compose down -v
