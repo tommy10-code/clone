@@ -1,22 +1,63 @@
-<div class="flex flex-col md:flex-row w-full pt-5" style="height: calc(100vh - 105px);">
+<!-- ヒーロー（中央1カラム） -->
+<div class="min-h-[calc(100vh-105px)] flex items-center">
+  <div class="w-full max-w-4xl mx-auto px-6 text-center">
 
-  <!-- 左カラム -->
-  <div class="w-full md:w-1/2 h-full">
-    <%= image_tag "map.png", alt: "地図画像", class: "w-full h-full object-cover" %>
+    <!-- ロゴ/サービス名 -->
+<%= image_tag "logo.png", alt: "ロゴ画像", class: "h-12 w-auto mx-auto" %>
+
+    <!-- スライド画像（object-contain + 自動切替） -->
+  <div class="mt-8 relative rounded-2xl overflow-hidden border border-gray-200 shadow-xl slideshow h-[40vh] md:h-[55vh]">
+
+    <picture>
+      <source srcset="<%= asset_path('hero1mob.png') %>" media="(max-width: 768px)">
+      <img src="<%= asset_path('hero1.png') %>" alt="" class="slide">
+    </picture>
+
+    <picture>
+      <source srcset="<%= asset_path('hero2mob.png') %>" media="(max-width: 768px)">
+      <img src="<%= asset_path('hero2.png') %>" alt="" class="slide">
+    </picture>
+
+    <picture>
+      <source srcset="<%= asset_path('hero3mob.png') %>" media="(max-width: 768px)">
+      <img src="<%= asset_path('hero3.png') %>" alt="" class="slide">
+    </picture>
+
   </div>
 
-  <!-- 右カラム -->
-  <div class="w-full md:w-1/2 flex flex-col justify-center items-center text-center h-full">
-    <h1 class="text-6xl font-bold">ドコデート</h1>
+    <!-- キャッチコピー -->
+    <p class="mt-8 text-2xl md:text-3xl font-extrabold leading-snug" style="font-family: 'Mochiy Pop One', sans-serif;">
+      “デート迷子”にさよなら<br>
+      もう「どこ行く？」で悩まない。
+    </p>
 
-    <div class="text-lg mt-4">
-      <p>“どこ行く？”を解決。地図でデート店探し</p>
-      <p class="text-sm text-gray-500">※ご利用には会員登録が必要です</p>
-    </div>
+    <!-- サブコピー（任意） -->
+    <p class="mt-2 text-sm text-gray-500">
+      ※ご利用には会員登録が必要です
+    </p>
 
+    <!-- CTAボタン -->
     <div class="mt-6">
-      <%= link_to "会員登録", new_user_registration_path, class: "btn text-3xl px-10 py-8 bg-[#D5A273] text-white hover:bg-[#b77f53]" %>
+      <%= link_to "会員登録", new_user_registration_path,
+        class: "inline-block text-xl md:text-2xl px-8 md:px-12 py-4 md:py-5 rounded-xl bg-amber-500 text-white font-bold hover:bg-amber-600 transition shadow-md" %>
     </div>
   </div>
-
 </div>
+
+<!-- CSS -->
+<style>
+.slideshow { position: relative; }
+.slideshow picture { position:absolute; inset:0; }
+.slideshow picture img {
+  width:100%; height:100%;
+  object-fit: cover;   /* containに変えると全部表示 */
+  opacity:0; animation: crossfade 12s infinite;
+}
+.slideshow picture:nth-child(1) img { animation-delay: 0s; }
+.slideshow picture:nth-child(2) img { animation-delay: 4s; }
+.slideshow picture:nth-child(3) img { animation-delay: 8s; }
+
+@keyframes crossfade {
+  0%{opacity:0} 8%{opacity:1} 33%{opacity:1} 41%{opacity:0} 100%{opacity:0}
+}
+</style>
