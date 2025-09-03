@@ -15,10 +15,12 @@
     <link rel="apple-touch-icon" href="/icon.png">
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+    <link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap" rel="stylesheet">
   </head>
 
-<body class="h-dvh flex flex-col min-h-screen bg-yellow-50">
-  <%= render "layouts/header" %>       <!-- 1) ヘッダー -->
+<body class="flex flex-col min-h-screen bg-yellow-100">
+  <!-- 1) ヘッダー -->
+  <%= render "layouts/header" %>
 
   <!-- 2) フラッシュをヘッダーの直下に -->
   <div class="px-4">
@@ -35,7 +37,7 @@
   </div>
 
   <!-- 3) コンテンツ -->
-  <main class="flex-1 min-h-0 overflow-y-auto px-4">
+  <main class="flex-1">
     <%= yield %>
   </main>
 

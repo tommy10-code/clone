@@ -1,22 +1,81 @@
-<div class="flex flex-col md:flex-row w-full pt-5" style="height: calc(100vh - 105px);">
+  <!-- コンテンツ幅を中央に寄せる -->
+  <div class="w-full max-w-4xl mx-auto px-6 text-center mt-10 mb-15">
 
-  <!-- 左カラム -->
-  <div class="w-full md:w-1/2 h-full">
-    <%= image_tag "map.png", alt: "地図画像", class: "w-full h-full object-cover" %>
-  </div>
+    <!-- ロゴ画像（高さ12: h-12 / 幅は比率維持: w-auto / 中央寄せ: mx-auto） -->
+    <%= image_tag "logo.png", alt: "ロゴ画像", class: "h-14 mx-auto" %>
 
-  <!-- 右カラム -->
-  <div class="w-full md:w-1/2 flex flex-col justify-center items-center text-center h-full">
-    <h1 class="text-6xl font-bold">ドコデート</h1>
+    <!-- ==============================
+         スライド画像（レスポンシブ + アニメーションで自動切替）
+         ============================== -->
+    <div class="mt-8 relative rounded-2xl overflow-hidden shadow-xl slideshow h-[45vh] md:h-[55vh]">
 
-    <div class="text-lg mt-4">
-      <p>“どこ行く？”を解決。地図でデート店探し</p>
-      <p class="text-sm text-gray-500">※ご利用には会員登録が必要です</p>
+      <!-- <picture> を使ってスマホ用とPC用の画像を切替 -->
+      <picture>
+        <!-- 幅768px以下なら hero1mob.png を表示 -->
+        <source srcset="<%= asset_path('hero1mob.png') %>" media="(max-width: 640px)">
+        <!-- PC用は hero1.png -->
+        <img src="<%= asset_path('hero1.png') %>" alt="" class="slide">
+      </picture>
+
+      <picture>
+        <source srcset="<%= asset_path('hero2mob.png') %>" media="(max-width: 640px)">
+        <img src="<%= asset_path('hero2.png') %>" alt="" class="slide">
+      </picture>
+
+      <picture>
+        <source srcset="<%= asset_path('hero3mob.png') %>" media="(max-width: 640px)">
+        <img src="<%= asset_path('hero3.png') %>" alt="" class="slide">
+      </picture>
     </div>
 
-    <div class="mt-6">
-      <%= link_to "会員登録", new_user_registration_path, class: "btn text-3xl px-10 py-8 bg-[#D5A273] text-white hover:bg-[#b77f53]" %>
+    <!-- キャッチコピー（Mochiy Pop One フォントを適用、太字、改行あり） -->
+    <p class="mt-8 text-2xl md:text-4xl font-extrabold leading-normal" style="font-family: 'Mochiy Pop One', sans-serif;">
+      “デート迷子”にさよなら<br>
+      もう「どこ行く？」で悩まない。
+    </p>
+
+    <!-- サブコピー（小さめ文字、グレー色） -->
+    <p class="my-4 text-sm text-red-500 ">
+      ※ご利用には会員登録が必要です
+    </p>
+
+    <!-- CTAボタン（hoverで色が変わる、角丸、影あり） -->
+    <div class="mb-4">
+      <%= link_to "会員登録", new_user_registration_path,
+        class: "block text-xl md:text-2xl px-1 md:px-12 py-4 md:py-5 rounded-xl bg-amber-500 text-white font-bold hover:bg-amber-600 transition shadow-md" %>
     </div>
   </div>
 
-</div>
+
+<!-- ==============================
+     CSSでスライドショー実装
+     ============================== -->
+<style>
+/* スライドショーの親は relative（子をabsoluteで重ねるため） */
+.slideshow { position: relative; }
+
+/* 各<picture>を同じ場所に重ねる */
+.slideshow picture { position:absolute; inset:0; }
+
+/* 各画像は枠いっぱいに広げる。余白なしで切り抜き表示するなら cover */
+.slideshow picture img{
+  width:100%; height:100%;
+  object-fit: cover   /* containに変えると画像全体を表示する（余白あり） */
+  opacity:0;           /* 初期は透明 */
+  animation: crossfade 12s infinite; /* アニメーションでループ表示 */
+}
+
+/* 各スライドの表示タイミングをずらす */
+.slideshow picture:nth-child(1) img { animation-delay: 0s; }
+.slideshow picture:nth-child(2) img { animation-delay: 4s; }
+.slideshow picture:nth-child(3) img { animation-delay: 8s; }
+
+/* フェードイン/アウトのアニメーション @keyframesは定義 animation: crossfadeで呼び出し*/
+@keyframes crossfade {
+  0%{opacity:0}    /* 最初は透明 */
+  8%{opacity:1}    /* だんだん表示 */
+  33%{opacity:1}   /* 表示キープ */
+  41%{opacity:0}   /* 消える */
+  100%{opacity:0}  /* 再び透明 */
+}
+</style>
