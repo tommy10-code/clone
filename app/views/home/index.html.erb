@@ -1,7 +1,5 @@
-<!-- ヒーロー（トップページの目立つ部分、中央寄せレイアウト） -->
-<div class="">
   <!-- コンテンツ幅を中央に寄せる -->
-  <div class="w-full max-w-4xl mx-auto px-6 text-center my-6">
+  <div class="w-full max-w-4xl mx-auto px-6 text-center mt-10 mb-15">
 
     <!-- ロゴ画像（高さ12: h-12 / 幅は比率維持: w-auto / 中央寄せ: mx-auto） -->
     <%= image_tag "logo.png", alt: "ロゴ画像", class: "h-14 mx-auto" %>
@@ -10,22 +8,22 @@
          スライド画像（レスポンシブ + アニメーションで自動切替）
          ============================== -->
     <div class="mt-8 relative rounded-2xl overflow-hidden shadow-xl slideshow h-[45vh] md:h-[55vh]">
-      
+
       <!-- <picture> を使ってスマホ用とPC用の画像を切替 -->
       <picture>
         <!-- 幅768px以下なら hero1mob.png を表示 -->
-        <source srcset="<%= asset_path('hero1mob.png') %>" media="(max-width: 768px)">
+        <source srcset="<%= asset_path('hero1mob.png') %>" media="(max-width: 640px)">
         <!-- PC用は hero1.png -->
         <img src="<%= asset_path('hero1.png') %>" alt="" class="slide">
       </picture>
 
       <picture>
-        <source srcset="<%= asset_path('hero2mob.png') %>" media="(max-width: 768px)">
+        <source srcset="<%= asset_path('hero2mob.png') %>" media="(max-width: 640px)">
         <img src="<%= asset_path('hero2.png') %>" alt="" class="slide">
       </picture>
 
       <picture>
-        <source srcset="<%= asset_path('hero3mob.png') %>" media="(max-width: 768px)">
+        <source srcset="<%= asset_path('hero3mob.png') %>" media="(max-width: 640px)">
         <img src="<%= asset_path('hero3.png') %>" alt="" class="slide">
       </picture>
     </div>
@@ -42,10 +40,12 @@
     </p>
 
     <!-- CTAボタン（hoverで色が変わる、角丸、影あり） -->
+    <div class="mb-4">
       <%= link_to "会員登録", new_user_registration_path,
-        class: "block text-xl md:text-2xl px- md:px-12 py-4 md:py-5 rounded-xl bg-amber-500 text-white font-bold hover:bg-amber-600 transition shadow-md" %>
+        class: "block text-xl md:text-2xl px-1 md:px-12 py-4 md:py-5 rounded-xl bg-amber-500 text-white font-bold hover:bg-amber-600 transition shadow-md" %>
+    </div>
   </div>
-</div>
+
 
 <!-- ==============================
      CSSでスライドショー実装
@@ -58,9 +58,9 @@
 .slideshow picture { position:absolute; inset:0; }
 
 /* 各画像は枠いっぱいに広げる。余白なしで切り抜き表示するなら cover */
-.slideshow picture img {
+.slideshow picture img{
   width:100%; height:100%;
-  object-fit: cover;   /* containに変えると画像全体を表示する（余白あり） */
+  object-fit: cover   /* containに変えると画像全体を表示する（余白あり） */
   opacity:0;           /* 初期は透明 */
   animation: crossfade 12s infinite; /* アニメーションでループ表示 */
 }
@@ -70,7 +70,7 @@
 .slideshow picture:nth-child(2) img { animation-delay: 4s; }
 .slideshow picture:nth-child(3) img { animation-delay: 8s; }
 
-/* フェードイン/アウトのアニメーション */
+/* フェードイン/アウトのアニメーション @keyframesは定義 animation: crossfadeで呼び出し*/
 @keyframes crossfade {
   0%{opacity:0}    /* 最初は透明 */
   8%{opacity:1}    /* だんだん表示 */

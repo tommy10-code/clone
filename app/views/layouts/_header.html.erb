@@ -1,13 +1,13 @@
-<header class="bg-yellow-300 py-4 px-6 flex justify-between items-center">
+<header class="bg-white  py-6 px-6 flex justify-between items-center border-b-5 border-dashed border-amber-500">
   <!-- 左：ロゴ -->
-  <% if user_signed_in? %> 
+  <% if user_signed_in? %>
   <div>
     <%= link_to shops_path, data: { turbo: false }, class: "hover:text-primary" do %>
-        <%= image_tag "logo.png", alt: "ロゴ画像", width: 95 %>
+        <%= image_tag "logo.png", alt: "ロゴ画像", width: 150 %>
       <% end %>
     <% else %>
       <%= link_to root_path, data: { turbo: false }, class: "hover:text-primary" do %>
-        <%= image_tag "logo.png", alt: "ロゴ画像", width: 95 %>
+        <%= image_tag "logo.png", alt: "ロゴ画像", width: 150 %>
       <% end %>
     <% end %>
   </div>
@@ -15,7 +15,7 @@
   <!-- モバイル用ハンバーガーアイコン -->
   <button
     id="menu-toggle"
-    class="md:hidden text-gray-800 focus:outline-none"
+    class="md:hidden text-amber-400 hover:text-amber-500"
     onclick="document.getElementById('mobile-menu').classList.toggle('hidden')"
   >
     <!-- 三本線 -->
@@ -26,39 +26,39 @@
   </button>
 
   <!-- PC用メニュー -->
-  <nav class="hidden md:flex space-x-6 text-gray-700 text-sm font-medium">
+  <nav class="hidden md:flex space-x-10 items-center">
     <% if user_signed_in? %>
-      <%= link_to "お店一覧", shops_path, class: "hover:text-primary", data: { turbo: false } %>
-      <%= link_to "お気に入り", favorites_path , class: "hover:text-primary", data: { turbo: false } %>
-      <%= link_to "お店投稿", new_shop_path	, class: "hover:text-primary" %>
-      <%= link_to "デート診断", diagnoses_new_path	, class: "hover:text-primary" %>
-      <%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete}  %>
+      <%= link_to "お店一覧 >", shops_path, class: "text-xl py-4 px-6 rounded-xl bg-amber-500 text-white font-bold hover:bg-amber-600", data: { turbo: false } %>
+      <%= link_to "お気に入り >", favorites_path , class: "text-xl text-amber-400 hover:text-amber-500", data: { turbo: false } %>
+      <%= link_to "お店投稿 >", new_shop_path	, class: "text-xl text-amber-400 hover:text-amber-500" %>
+      <%= link_to "デート診断 >", diagnoses_new_path	, class: "text-xl text-amber-400 hover:text-amber-500" %>
+      <%= link_to "ログアウト >", destroy_user_session_path, class: "text-xl text-amber-400 hover:text-amber-500",  data: { turbo_method: :delete}  %>
     <% else %>
-      <%= link_to "デート診断", diagnoses_new_path	, class: "hover:text-primary" %>
-      <%= link_to "ログイン", new_user_session_path, class: "hover:text-primary" %>
-      <%= link_to "会員登録", new_user_registration_path, class: "hover:text-primary" %>
+      <%= link_to "デート診断 >", diagnoses_new_path	, class: "text-xl text-amber-400 hover:text-amber-500 " %>
+      <%= link_to "ログイン >", new_user_session_path, class: "text-xl text-amber-400 hover:text-amber-500" %>
+      <%= link_to "会員登録", new_user_registration_path, class: "text-xl py-4 px-6 rounded-xl bg-amber-500 text-white font-bold hover:bg-amber-600" %>
     <% end %>
   </nav>
 </header>
 
 <!-- スマホ用メニュー（初期は非表示） -->
-<nav id="mobile-menu" class="md:hidden hidden bg-yellow-100 px-6 py-4 space-y-3">
+<nav id="mobile-menu" class="hidden bg-white px-6 py-4 space-y-3">
   <ul class="flex flex-col gap-2 p-2">
     <!-- 共通 -->
-    <li><%= link_to "デート診断", diagnoses_new_path, class: "hover:text-primary " %></li>
+    <li><%= link_to "デート診断 >", diagnoses_new_path, class: "text-amber-500 hover:text-amber-600 font-bold" %></li>
 
     <% if user_signed_in? %>
-      <li><%= link_to "お店一覧", shops_path, class: "hover:text-primary", data: { turbo: false } %></li>
-      <li><%= link_to "お気に入り", favorites_path, class: "hover:text-primary", data: { turbo: false } %></li>
-      <li><%= link_to "お店投稿", new_shop_path, class: "hover:text-primary" %></li>
+      <li><%= link_to "お店一覧 >", shops_path, class: "text-amber-500 hover:text-amber-600 font-bold", data: { turbo: false } %></li>
+      <li><%= link_to "お気に入り >", favorites_path, class: "text-amber-500 hover:text-amber-600 font-bold", data: { turbo: false } %></li>
+      <li><%= link_to "お店投稿 >", new_shop_path, class: "text-amber-500 hover:text-amber-600 font-bold" %></li>
       <li>
-        <%= link_to "ログアウト", destroy_user_session_path,
+        <%= link_to "ログアウト >", destroy_user_session_path,
               data: { turbo_method: :delete, turbo_confirm: "ログアウトしますか？" },
-              class: "hover:text-primary" %>
+              class: "text-amber-500 hover:text-amber-600 font-bold" %>
       </li>
     <% else %>
-      <li><%= link_to "ログイン", new_user_session_path, class: "hover:text-primary" %></li>
-      <li><%= link_to "会員登録", new_user_registration_path, class: "hover:text-primary" %></li>
+      <li><%= link_to "ログイン >", new_user_session_path, class: "text-amber-500 hover:text-amber-600 font-bold" %></li>
+      <li><%= link_to "会員登録 >", new_user_registration_path, class: "text-amber-500 hover:text-amber-600 font-bold" %></li>
     <% end %>
   </ul>
 </nav>
