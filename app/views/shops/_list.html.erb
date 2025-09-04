@@ -1,0 +1,67 @@
+<div class="flex flex-col md:flex-row h-screen pt-5 mx-2">
+  <!-- 左側：地図 -->
+  <div class="w-full md:w-2/3 flex flex-col md:mr-2">
+    <div id="map" class="h-[55vh] md:h-3/4 w-full"></div>
+
+  <!-- 左側：検索窓 -->
+      <%= search_form_for @q, url: shops_path, method: :get, local: true, data: { turbo: false } do |f| %>
+      <div class="flex flex-col md:flex-row md:items-end gap-2 pt-2 ">
+        <!-- 1) カテゴリ -->
+        <div class="md:flex-1">
+          <%= f.label :category_id_eq, "カテゴリ検索" %>
+          <%= f.collection_select :category_id_eq, Category.all, :id, :name,
+                { include_blank: "すべて" },
+                class: "border px-1 py-2 rounded w-full bg-white" %>
+        </div>
+
+        <!-- 2) デートシーン -->
+        <div class="md:flex-1">
+          <%= f.label :scenes_id_eq, "デートシーン検索" %>
+          <%= f.collection_select :scenes_id_eq, Scene.all, :id, :name,
+                { include_blank: "すべて" },
+                class: "border px-1 py-2 rounded w-full bg-white" %>
+        </div>
+
+        <!-- 3) キーワード -->
+        <div class="md:flex-1">
+          <%= f.label :title_or_address_cont, "キーワード検索" %>
+          <div class="flex flex-col md:flex-row gap-2">
+            <%= f.search_field :title_or_address_cont,
+                  placeholder: "タイトルまたは住所",
+                  class: "border px-2 py-2 rounded bg-white w-full" %>
+
+            <%= f.submit "検索",
+                  class: "bg-blue-500 text-white px-4 py-2 rounded mt-4 md:mt-0 cursor-default hover:cursor-pointer" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- 右側：お店一覧（地図と高さ合わせる） -->
+  <div class="hidden md:block flex flex-col w-full md:w-1/3 mt-3 md:mt-0">
+    <div class=" p-4 overflow-y-auto bg-white h-3/4 mr-2">
+      <h2 class="text-xl font-bold mb-4">お店一覧</h2>
+      <% shops.each do |shop| %>
+        <div class="mb-4 border-b pb-2">
+          <h3 class="text-lg font-semibold">
+          <a href="#"
+            class="text-black hover:text-blue-600 js-shop-title"
+            data-shop-id="<%= shop.id %>">
+            <%= shop.title %>
+          </a>
+          </h3>
+            <p class="text-sm text-gray-600">
+              カテゴリ: <%= shop.category ? shop.category.name : "未設定" %></p>
+            <p class="text-sm text-gray-600">
+              シーン: <%= shop.scenes.present? ? shop.scenes.map(&:name).join(" / ") : "未設定" %></p>
+            <div class="flex">
+              <%= link_to "お店詳細", shop_path(shop), target: "_blank", rel: "noopener noreferrer", class: "inline-block mt-1 text-sm text-black bg-yellow-300 hover:bg-yellow-500 px-3 py-1 rounded" %>
+              <%= render 'shops/bookmark_button', shop: shop %>
+            </div>
+        </div>
+      <% end %>
+      <%#= paginate @shops %>
+    </div>
+  </div>
+</div>

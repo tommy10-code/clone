@@ -32,19 +32,7 @@
   <!-- 1) ヘッダー -->
   <%= render "layouts/header" %>
 
-  <!-- 2) フラッシュをヘッダーの直下に -->
-  <div class="px-4">
-    <% flash.each do |type, msg| %>
-      <% next if msg.blank? %>
-      <% klass =
-        case type.to_sym
-        when :notice, :success then "bg-green-100 text-green-800"
-        when :alert,  :error   then "bg-red-100 text-red-800"
-        else "bg-slate-100 text-slate-800"
-        end %>
-      <p class="<%= klass %> p-2 my-2 rounded shadow-sm"><%= msg %></p>
-    <% end %>
-  </div>
+  <%= render "layouts/flash" %>
 
   <!-- 3) コンテンツ -->
   <main class="flex-1">
