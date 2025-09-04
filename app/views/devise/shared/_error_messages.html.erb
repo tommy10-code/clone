@@ -1,11 +1,11 @@
 <% if resource.errors.any? %>
-  <div id="error_explanation" data-turbo-cache="false">
+  <div id="error_explanation" data-turbo-cache="false" class="mb-1 p-3 bg-red-50 border border-red-200 rounded">
     <h2 class="bg-red-100 text-red-800 p-4 rounded mb-4">
       <%= " ユーザー登録に失敗しました"  %>
     </h2>
     <ul class="text-red-400 list-disc pl-5">
       <% resource.errors.full_messages.each do |message| %>
-        <li class="mb-3"><%= message %></li>
+        <li class="mb-1"><%= message %></li>
       <% end %>
     </ul>
   </div>
