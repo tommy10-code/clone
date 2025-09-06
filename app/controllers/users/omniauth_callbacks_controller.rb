@@ -1,0 +1,15 @@
+class Users::OmniauthCallbacksController < ApplicationController
+  def google_oauth2
+      auth = request.env["omniauth.auth"]
+      @user = User.from_omniauth(auth)
+
+    if @user.persisted?
+      sign_in @user, event: :authentication
+      redirect_to shops_path, notice: 'Googleアカウントでログインしました'
+      return  # ← これを追加！
+    else
+      redirect_to new_user_registration_url, alert: 'ログインに失敗しました'
+      return  # ← これも追加！
+    end
+  end
+end

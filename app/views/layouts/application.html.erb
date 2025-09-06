@@ -16,6 +16,16 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
     <link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap" rel="stylesheet">
+
+    <meta name="description" content="地図から直感的にお店を探せるアプリです。">
+    <!-- OGP -->
+    <meta property="og:title" content="デート迷子にさよなら！ | ドコデート" />
+    <meta property="og:description" content="地図から直感的にお店を探せるアプリです。" />
+    <meta property="og:image" content="<%= asset_url('ogp.png') %>" />
+    <meta property="og:url" content="<%= request.original_url %>" />
+    <meta property="og:type" content="website" />
+    <!-- Twitterカードも追加しておくと安心 -->
+    <meta name="twitter:card" content="summary_large_image" />
   </head>
 
 <body class="flex flex-col min-h-screen bg-yellow-100">
