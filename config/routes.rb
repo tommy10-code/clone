@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   resources :users, only: [ :index, :show ]
   resources :shops do
     resource :favorites, only: [ :create, :destroy ]
+    collection { get :autocomplete }
   end
   authenticated :user do
     root to: "shops#index", as: :authenticated_root

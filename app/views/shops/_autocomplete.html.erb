@@ -1,0 +1,8 @@
+<% @shops.each do |shop| %>
+  <li class="flex w-full items-center text-sm py-2 px-3 bg-white hover:bg-amber-200"
+      role="option"
+      data-autocomplete-value="<%= shop.id %>"
+      data-autocomplete-label="<%= shop.title %>" >
+    <%= shop.title %>
+  </li>
+<% end %>
