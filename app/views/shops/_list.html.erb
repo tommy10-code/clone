@@ -25,11 +25,12 @@
         <!-- 3) キーワード -->
         <div class="md:flex-1">
           <%= f.label :title_or_address_cont, "キーワード検索" %>
-          <div class="flex flex-col md:flex-row gap-2">
-            <%= f.search_field :title_or_address_cont,
-                  placeholder: "タイトルまたは住所",
-                  class: "border px-2 py-2 rounded bg-white w-full" %>
-
+          <div class="flex flex-col md:flex-row gap-2 ">
+            <div data-controller="autocomplete" data-autocomplete-url-value="<%= autocomplete_shops_path %>" role="combobox" class="relative" >
+              <%= f.search_field :title_or_address_cont, data: { autocomplete_target: 'input' }, placeholder: "タイトルまたは住所", class: "border px-2 py-2 rounded bg-white w-full" %>
+              <%= f.hidden_field :title, data: { autocomplete_target: 'hidden' } %>
+              <ul data-autocomplete-target="results" class="absolute top-full left-0 right-0 "></ul>
+            </div>
             <%= f.submit "検索",
                   class: "bg-blue-500 text-white px-4 py-2 rounded mt-4 md:mt-0 cursor-default hover:cursor-pointer" %>
           </div>

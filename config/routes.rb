@@ -2,16 +2,22 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     omniauth_callbacks: "users/omniauth_callbacks"
   }
-  root "home#index"
   get "terms", to:"home#terms"
   get "privacy", to:"home#privacy"
 
   resources :users, only: [ :index, :show ]
   resources :shops do
     resource :favorites, only: [ :create, :destroy ]
+    collection { get :autocomplete }
   end
+  
+  #ログインしている時のページを新規に開いた先
   authenticated :user do
     root to: "shops#index", as: :authenticated_root
+  end
+  #ログインしていない時のページを新規に開いた先
+  unauthenticated do
+    root to: "home#index"
   end
 
   get "/favorites", to: "users#favorites"

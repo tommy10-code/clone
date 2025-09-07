@@ -6,6 +6,12 @@ class ShopsController < ApplicationController
     @shops = @q.result.includes(:category, :scenes).order(created_at: :desc)
   end
 
+  def autocomplete
+    q = params[:q].to_s
+    @shops = Shop.where("title ILIKE :q OR address ILIKE :q", q: "#{q}%").limit(5)
+    render partial: "shops/autocomplete"  # ← HTML fragment を返す！
+  end
+
   def show
     @shop = Shop.find(params[:id])
   end

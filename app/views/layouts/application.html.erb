@@ -34,8 +34,11 @@
 
   <%= render "layouts/flash" %>
 
-  <!-- 3) コンテンツ -->
-  <main class="flex-1">
+  <!-- 3) コンテンツ ローディングアニメーションをメインの中で表示-->
+  <main class="relative flex-1">
+    <div id="loading" class="absolute inset-0 flex items-center justify-center bg-white/80 hidden">
+      <div class="loader"></div>
+    </div>
     <%= yield %>
   </main>
 
