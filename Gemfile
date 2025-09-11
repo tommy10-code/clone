@@ -46,9 +46,9 @@ gem "importmap-rails"
 gem "ransack"
 gem "image_processing", "~> 1.2"
 gem "kaminari"
-gem 'omniauth'
-gem 'omniauth-google-oauth2'
-gem 'omniauth-rails_csrf_protection'
+gem "omniauth"
+gem "omniauth-google-oauth2"
+gem "omniauth-rails_csrf_protection"
 
 group :development, :test do
   gem "debug", platforms: %i[ mri windows ], require: "debug/prelude"

@@ -37,5 +37,4 @@ Devise.setup do |config|
   else
     Rails.logger.warn "[Devise] GOOGLE_CLIENT_ID/SECRET 未設定のため Google OAuth をスキップ (env=#{Rails.env})"
   end
-
 end
