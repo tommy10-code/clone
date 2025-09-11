@@ -23,7 +23,10 @@
   <%- resource_class.omniauth_providers.each do |provider| %>
     <div class="flex items-center justify-center border border-gray-300 py-2 mt-4 mx-16 rounded-md ">
       <%= image_tag "googleicon.png", alt: "googleアイコン", class:"w-7 h-7 mx-2" %>
-      <%= button_to "Googleでログイン", omniauth_authorize_path(resource_name, provider), data: { turbo: false }, class:"text-lg cursor-pointer" %>
+      <%= button_to "Googleでログイン", user_google_oauth2_omniauth_authorize_path, data: { turbo: false }, class:"text-lg cursor-pointer" %>
     </div>
   <% end %>
 <% end %>
+
+
+<%#= button_to "Googleでログイン", omniauth_authorize_path(resource_name, provider), data: { turbo: false }, class:"text-lg cursor-pointer" %>

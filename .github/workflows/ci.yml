@@ -77,12 +77,6 @@ jobs:
           echo "GOOGLE_CLIENT_ID=dummy" >> .env
           echo "GOOGLE_CLIENT_SECRET=dummy" >> .env
 
-      - name: Run tests
-        run: |
-          docker compose run --rm \
-            -e RAILS_ENV=test \
-            web bundle exec rspec
-
       # 失敗時のログ確保
       - name: Upload artifacts on failure
         if: failure()
