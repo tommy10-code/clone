@@ -5,6 +5,10 @@ class Shop < ApplicationRecord
   belongs_to :user
   belongs_to :category, optional: true
   has_many :favorites, dependent: :destroy
+  scope :favorited_by, ->(user_id) {
+    joins(:favorites).where(favorites: { user_id: user_id }).distinct
+  }
+
   has_many :users, through: :favorites
   has_many_attached :images
   has_many :shop_scenes, dependent: :destroy
@@ -14,6 +18,15 @@ class Shop < ApplicationRecord
   validates :address, presence: true
   validates :category_id, presence: true
   validate :scenes_count_within_limit
+
+  def category_name  # ★ jsにカテゴリー名を呼ぶためのこのメソッドが呼び出される
+    category.present? ? category.name : "カテゴリ未設定"
+  end
+
+  def scenes_name
+    scenes.first ? scenes.first.name : "シーン未設定"
+    scenes.first&.name || "シーン未設定"
+  end
 
   def self.ransackable_attributes(auth_object = nil)
   [ "title", "address", "body", "category_id", "created_at", "latitude", "longitude", "scenes", "shop_scenes" ]

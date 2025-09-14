@@ -29,7 +29,7 @@
   <nav class="hidden md:flex space-x-10 items-center">
     <% if user_signed_in? %>
       <%= link_to "お店一覧 >", shops_path, class: "text-xl py-4 px-6 rounded-xl bg-amber-500 text-white font-bold hover:bg-amber-600", data: { turbo: false } %>
-      <%= link_to "お気に入り >", favorites_path , class: "text-xl text-amber-400 hover:text-amber-500", data: { turbo: false } %>
+      <%= link_to "お気に入り >", shops_path(favorited: 1) , class: "text-xl text-amber-400 hover:text-amber-500", data: { turbo: false } %>
       <%= link_to "お店投稿 >", new_shop_path	, class: "text-xl text-amber-400 hover:text-amber-500" %>
       <%= link_to "デート診断 >", diagnoses_new_path	, class: "text-xl text-amber-400 hover:text-amber-500" %>
       <%= link_to "ログアウト >", destroy_user_session_path, class: "text-xl text-amber-400 hover:text-amber-500",  data: { turbo_method: :delete}  %>
