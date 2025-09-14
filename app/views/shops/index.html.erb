@@ -1,28 +1,17 @@
 <%= render "shops/list", shops: @shops%>
 
-<!-- ✅ shopsデータをJSONで埋め込み（地図JSがここから読む） -->
-<%= tag.script id: "shops-json", type: "application/json" do
-  raw(
-    @shops.
-      where.not(latitude: nil, longitude: nil).
-      map { |s|
-        {
-          id: s.id,
-          t:  s.title.to_s,
-          cat: s.category&.name.to_s,
-          detail: shop_path(s),                               # 詳細URL
-          la: s.latitude,
-          ln: s.longitude,
-          scn: s.scenes.order(:name).pluck(:name),            # シーン名の配列
-          url: "https://www.google.com/search?q=#{ERB::Util.url_encode(s.title.to_s)}"
-        }
-      }.to_json
-  )
-end %>
-
-<!-- 地図を表示させるために、必須のもの -->
-<% unless Rails.env.test? %>
   <script async defer
     src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&callback=initMap&loading=async">
   </script>
-<% end %>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const btn = document.getElementById("search");
+      const sel = document.getElementById("category");
+      if (!btn) return;  // ← ここを追加
+      btn.addEventListener("click", e => {
+        e.preventDefault();
+        performSearch(sel.value);   // ← ここで呼ぶ
+      });
+    });
+  </script>

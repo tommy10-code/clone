@@ -4,6 +4,15 @@ class ShopsController < ApplicationController
   def index
     @q = Shop.ransack(params[:q])
     @shops = @q.result.includes(:category, :scenes).order(created_at: :desc)
+
+    respond_to do |format|
+    format.html  # 既存のビュー
+    format.json { render json: @shops.to_json(
+      only: [:id, :title, :address, :latitude, :longitude],
+      methods: [:category_name, :scenes_name]
+      )
+    }
+    end
   end
 
   def autocomplete

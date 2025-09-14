@@ -15,6 +15,15 @@ class Shop < ApplicationRecord
   validates :category_id, presence: true
   validate :scenes_count_within_limit
 
+  def category_name  # ★ jsにカテゴリー名を呼ぶためのこのメソッドが呼び出される
+    category.present? ? category.name : 'カテゴリ未設定'
+  end
+  
+  def scenes_name
+    scenes.first ? scenes.first.name : 'シーン未設定'
+    scenes.first&.name || 'シーン未設定'
+  end
+
   def self.ransackable_attributes(auth_object = nil)
   [ "title", "address", "body", "category_id", "created_at", "latitude", "longitude", "scenes", "shop_scenes" ]
   end
