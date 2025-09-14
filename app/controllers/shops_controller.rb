@@ -14,8 +14,8 @@ class ShopsController < ApplicationController
     respond_to do |format|
     format.html  # 既存のビュー
     format.json { render json: @shops.to_json(
-      only: [:id, :title, :address, :latitude, :longitude],
-      methods: [:category_name, :scenes_name]
+      only: [ :id, :title, :address, :latitude, :longitude ],
+      methods: [ :category_name, :scenes_name ]
       )
     }
     end
