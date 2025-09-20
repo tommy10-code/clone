@@ -132,6 +132,3 @@ Figma：https://x.gd/AeFrs
 
 ### ER図
 ![ER図](https://i.gyazo.com/58f775f0384bdbf0eda7278c0af30232.png)
-
-
-テスト
