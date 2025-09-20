@@ -19,7 +19,8 @@ class Shop < ApplicationRecord
   validates :category_id, presence: true
   validate :scenes_count_within_limit
 
-  def category_name  # ★ jsにカテゴリー名を呼ぶためのこのメソッドが呼び出される
+  # jsにカテゴリー名を呼ぶためのこのメソッドが呼び出される
+  def category_name
     category.present? ? category.name : "カテゴリ未設定"
   end
 
@@ -38,13 +39,10 @@ class Shop < ApplicationRecord
 
   private
   def scenes_count_within_limit
-    ids = Array(scene_ids).reject(&:blank?)   # hiddenフィールド対策
+    ids = Array(scene_ids).reject(&:blank?)
     if ids.size > 2
       errors.add(:scenes, "は2つまで選択できます")
     end
-    # 最低1つも担保したいなら↓も併用
-    # if ids.empty?
-    #   errors.add(:scenes, "を1つ以上選んでください")
-    # end
+
   end
 end
