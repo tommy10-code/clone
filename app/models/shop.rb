@@ -43,6 +43,5 @@ class Shop < ApplicationRecord
     if ids.size > 2
       errors.add(:scenes, "は2つまで選択できます")
     end
-
   end
 end
