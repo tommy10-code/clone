@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-  # 必ずユーザーがログインしているか確認する
   before_action :authenticate_user!
 
   def favorites

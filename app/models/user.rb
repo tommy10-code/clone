@@ -10,41 +10,38 @@ class User < ApplicationRecord
 
   validates :name, presence: true, on: :create
 
-  def bookmark(shop) # お気に入り追加 かつ 重複登録の防止
+  # お気に入り追加 削除 重複確認
+  def bookmark(shop)
     favorite_shops << shop unless bookmark?(shop)
   end
 
-  def unbookmark(shop)# お気に入り削除
+  def unbookmark(shop)
     favorite_shops.destroy(shop)
   end
 
-  def bookmark?(shop)# お気に入りがすでに登録されているか確認
+  def bookmark?(shop)
     favorite_shops.include?(shop)
   end
 
+  # Googleログイン設定
   def self.from_omniauth(auth)
     user = find_by(provider: auth.provider, uid: auth.uid)
-
-    return user if user  # 既にOAuth連携済みのユーザー
-
-    # 2. メールアドレスで既存ユーザーを検索
+    return user if user
     user = find_by(email: auth.info.email)
 
-    if user  # 既存ユーザーにOAuth情報を追加
+    if user
       user.update!(
         provider: auth.provider,
         uid: auth.uid)
       return user
     end
 
-    # 3. 新規ユーザーを作成
     create!(
       email: auth.info.email,
       password: Devise.friendly_token[0, 20],
       provider: auth.provider,
       uid: auth.uid,
       name: auth.info.name
-      # name: auth.info.name # 必要に応じて
     )
   end
 end

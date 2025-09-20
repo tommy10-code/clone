@@ -12,7 +12,7 @@ class ShopsController < ApplicationController
     @shops = scope
 
     respond_to do |format|
-    format.html  # 既存のビュー
+    format.html
     format.json { render json: @shops.to_json(
       only: [ :id, :title, :address, :latitude, :longitude ],
       methods: [ :category_name, :scenes_name ]
@@ -24,7 +24,7 @@ class ShopsController < ApplicationController
   def autocomplete
     q = params[:q].to_s
     @shops = Shop.where("title ILIKE :q OR address ILIKE :q", q: "#{q}%").limit(5)
-    render partial: "shops/autocomplete"  # ← HTML fragment を返す！
+    render partial: "shops/autocomplete"
   end
 
   def show
@@ -45,11 +45,11 @@ class ShopsController < ApplicationController
   end
 
   def edit
-    @shop = current_user.shops.find(params[:id])     # ← 自分の投稿だけ拾う
+    @shop = current_user.shops.find(params[:id])
   end
 
   def update
-    @shop = current_user.shops.find(params[:id])     # ← 自分の投稿だけ拾う
+    @shop = current_user.shops.find(params[:id])
 
     if @shop.update(shop_params)
       redirect_to shop_path(@shop), notice: "お店を更新しました"
@@ -59,7 +59,7 @@ class ShopsController < ApplicationController
   end
 
  def destroy
-    @shop = current_user.shops.find(params[:id])     # ← 自分の投稿だけ拾う
+    @shop = current_user.shops.find(params[:id])
     @shop.destroy
       redirect_to shops_path, status: :see_other, notice: "お店を削除しました"
   end
