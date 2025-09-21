@@ -1,3 +1,6 @@
+
+
+
 ![ロゴ](https://i.gyazo.com/1b8d647bcce8f9257823b5de73bddd7d.png)
 
 ## 目次
@@ -85,17 +88,21 @@
 
 ---
 ## 機能紹介
-ユーザー登録 / ログイン
+**ログイン** Googleログインにも対応
 
-| 運動内容の報告 / 労いの言葉を生成 |
-| :---: | 
-| [![Image from Gyazo](https://i.gyazo.com/203272d6116e6efc255fed96f2a04c40.gif)](https://gyazo.com/203272d6116e6efc255fed96f2a04c40) |
-| <p align="left">その日行った運動内容を入力する事で、OpenAI APIにリクエストが送信され、『労いの言葉』を生成・レスポンスとして返します。<br> レスポンスとして返ってきた『労いの言葉』に関しては、Xで共有可能です。<p> |
+https://github.com/user-attachments/assets/e4a56841-e2a9-4831-b399-3ace0d8f4f11
 
+**お店登録から地図表示機能**
 
-お店検索機能
-お気に入り機能
-デート診断
+https://github.com/user-attachments/assets/249f56d2-c7c6-4c98-b5d1-0e945ed2c06b
+
+**お気に入り機能**
+
+https://github.com/user-attachments/assets/e83cbc80-c104-4240-9ea4-04e6a2b297d3
+
+**デート診断**
+
+https://github.com/user-attachments/assets/09a9ed44-89b4-457c-993a-fe56f2892640
 
 ---
 
