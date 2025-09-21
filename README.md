@@ -86,7 +86,12 @@
 ---
 ## 機能紹介
 ユーザー登録 / ログイン
-[▶ 動画を見る](https://github.com/user-attachments/assets/2bace16b-34ce-4bf7-997a-042220c9638a)
+
+| 運動内容の報告 / 労いの言葉を生成 |
+| :---: | 
+| [![Image from Gyazo](https://i.gyazo.com/203272d6116e6efc255fed96f2a04c40.gif)](https://gyazo.com/203272d6116e6efc255fed96f2a04c40) |
+| <p align="left">その日行った運動内容を入力する事で、OpenAI APIにリクエストが送信され、『労いの言葉』を生成・レスポンスとして返します。<br> レスポンスとして返ってきた『労いの言葉』に関しては、Xで共有可能です。<p> |
+
 
 お店検索機能
 お気に入り機能
