@@ -86,7 +86,7 @@
 ---
 ## 機能紹介
 ユーザー登録 / ログイン
-
+[▶ 動画を見る](https://github.com/user-attachments/assets/2bace16b-34ce-4bf7-997a-042220c9638a)
 
 お店検索機能
 お気に入り機能
