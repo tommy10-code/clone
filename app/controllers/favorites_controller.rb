@@ -1,17 +1,17 @@
 class FavoritesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_shop
+  before_action :set_shop, only: [:create, :destroy]
 
-  def favorites
+  def favorite
     @favorite_shops = current_user.favorite_shops
   end
 
   def create
-    current_user.bookmark(@shop)
+    current_user.favorite(@shop)
   end
 
   def destroy
-    current_user.unbookmark(@shop)
+    current_user.unfavorite(@shop)
   end
 
   private

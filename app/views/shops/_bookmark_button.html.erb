@@ -1,5 +1,5 @@
 <div id="bookmark-button-for-shop-<%= shop.id %>">
-  <% if current_user.bookmark?(shop) %>
+  <% if current_user.favorite?(shop) %>
     <%= button_to "お気に入り解除", shop_favorites_path(shop), method: :delete, data: { turbo_method: :delete }, form: { data: { turbo_stream: true } }, class: "inline-block mt-1 text-sm text-white bg-red-500 hover:bg-blue-600 px-3 py-1 rounded ml-1" %>
   <% else %>
     <%= button_to "お気に入り登録", shop_favorites_path(shop), method: :post, data: { turbo_method: :post }, form: { data: { turbo_stream: true } }, class: "inline-block mt-1 text-sm text-white bg-blue-500 hover:bg-blue-600 px-3 py-1 rounded ml-1" %>

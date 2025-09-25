@@ -4,12 +4,13 @@ Rails.application.routes.draw do
   }
   get "terms", to: "home#terms"
   get "privacy", to: "home#privacy"
-
+  
   resources :users, only: [ :index, :show ]
   resources :shops  do
     resource :favorites, only: [ :create, :destroy ]
     collection { get :autocomplete }
   end
+  get "/favorites", to: "users#favorite"
 
   # ログインしている時のページを新規に開いた先
   authenticated :user do
@@ -20,7 +21,6 @@ Rails.application.routes.draw do
     root to: "home#index"
   end
 
-  get "/favorites", to: "users#favorites"
   get "diagnoses/new"
   post "diagnosis/result", to: "diagnoses#result", as: :diagnosis_result
 

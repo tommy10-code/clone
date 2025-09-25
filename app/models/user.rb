@@ -10,17 +10,17 @@ class User < ApplicationRecord
 
   validates :name, presence: true, on: :create
 
-  # お気に入り追加 削除 重複確認
-  def bookmark(shop)
-    favorite_shops << shop unless bookmark?(shop)
+  #お気に入り追加 削除 重複確認
+  def favorite(shop)
+    favorites.find_or_create_by!(shop_id: shop.id)
   end
 
-  def unbookmark(shop)
-    favorite_shops.destroy(shop)
+  def unfavorite(shop)
+    favorites.where(shop_id: shop.id).destroy_all
   end
 
-  def bookmark?(shop)
-    favorite_shops.include?(shop)
+  def favorite?(shop)
+    favorites.exists?(shop_id: shop.id)
   end
 
   # Googleログイン設定

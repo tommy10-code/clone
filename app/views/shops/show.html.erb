@@ -1,79 +1,83 @@
-<div class="max-w-3xl mx-auto text-center mt-5 bg-white rounded-xl shadow-lg p-8">  <div class="flex justify-between items-center mb-6">
-    <div class="flex space-x-4 items-center mx-auto">
-      <h1 class="text-3xl font-bold">お店詳細</h1>
-      <!-- Google検索ボタン -->
-      <% if user_signed_in? && (@shop.user_id == current_user.id) %>
-        <%= link_to edit_shop_path(@shop), class: "text-2xl" do %>
-          ✏️
-        <% end %>
-        <%= link_to shop_path(@shop), method: :delete, data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか?" }, class: "text-2xl" do %>
-          🗑️
-        <% end %>
-      <% end %>
-
-    </div>
-  </div>
-
-  <!-- 店名 -->
-  <div class="mb-4">
-    <p class="font-bold">店名 <span class="text-red-500">*</span></p>
-    <p class="text-lg"> 
-    <%= link_to @shop.title, "https://www.google.com/search?q=#{CGI.escape(@shop.title)}",
-                target: "_blank",
-                rel: "noopener",
-                class: "text-blue-600 hover:underline" %>
-    </p>
-    <div class="mt-2 mb-4">
-    <%= link_to "Googleでこのお店を検索",
-                "https://www.google.com/search?q=#{CGI.escape(@shop.title)}",
-                target: "_blank",
-                rel: "noopener",
-                class: "bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded" %>
-    </div>
-  </div>
-
-  <!-- 住所 -->
-  <div class="mb-4">
-    <p class="font-bold">住所 <span class="text-red-500">*</span></p>
-    <p class="text-lg"> <%= @shop.address %> </p>
-  </div>
-
-  <!-- カテゴリ -->
-  <div class="mb-4">
-    <p class="font-bold">カテゴリ <span class="text-red-500">*</span></p>
-    <p class="text-lg"> <%= @shop.category&.name || "" %> </p>
-  </div>
-  
-  <!-- デートシーン -->
-  <div class="mb-4">
-    <p class="font-bold">デートシーン <span class="text-red-500">*</span></p>
-      <% if @shop.scenes.any? %>
-        <%= @shop.scenes.order(:name).map(&:name).join(" / ") %>
-      <% else %>
-        未設定
-      <% end %>
-  </div>
-
-  <!-- お店の画像 -->
-  <div class="mb-6">
-    <p class="font-bold mb-2">お店の画像</p>
-      <% if @shop.images.attached? %>
-      <div class="flex flex-wrap gap-4">
-        <% @shop.images.each do |img| %>
-        <%= image_tag img.variant(resize_to_fill: [200, 200]).processed, class: "w-[200px] h-[200px] object-cover rounded" %>
+<%= turbo_frame_tag "right_panel" do %>
+  <div class="max-w-3xl mx-auto text-center mt-5 bg-white rounded-xl shadow-lg p-8">
+    <div class="flex justify-between items-center mb-6">
+      <div class="flex space-x-4 items-center mx-auto">
+        <h1 class="text-3xl font-bold">お店詳細</h1>
+        <!-- Google検索ボタン -->
+        <% if user_signed_in? && (@shop.user_id == current_user.id) %>
+          <%= link_to edit_shop_path(@shop), class: "text-2xl" do %>
+            ✏️
+          <% end %>
+          <%= link_to shop_path(@shop), method: :delete, data: { turbo_method: :delete, turbo_confirm: "本当に削除しますか?" }, class: "text-2xl" do %>
+            🗑️
+          <% end %>
         <% end %>
       </div>
+    </div>
+
+    <!-- 店名 -->
+    <div class="mb-4">
+      <p class="font-bold">店名 <span class="text-red-500">*</span></p>
+      <p class="text-lg">
+      <%= link_to @shop.title, "https://www.google.com/search?q=#{CGI.escape(@shop.title)}",
+                  target: "_blank",
+                  rel: "noopener",
+                  class: "text-blue-600 hover:underline" %>
+      </p>
+      <div class="mt-2 mb-4">
+      <%= link_to "Googleでこのお店を検索",
+                  "https://www.google.com/search?q=#{CGI.escape(@shop.title)}",
+                  target: "_blank",
+                  rel: "noopener",
+                  class: "bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded" %>
+      </div>
+    </div>
+
+    <!-- 住所 -->
+    <div class="mb-4">
+      <p class="font-bold">住所 <span class="text-red-500">*</span></p>
+      <p class="text-lg"> <%= @shop.address %> </p>
+    </div>
+
+    <!-- カテゴリ -->
+    <div class="mb-4">
+      <p class="font-bold">カテゴリ <span class="text-red-500">*</span></p>
+      <p class="text-lg"> <%= @shop.category&.name || "" %> </p>
+    </div>
+
+    <!-- デートシーン -->
+    <div class="mb-4">
+      <p class="font-bold">デートシーン <span class="text-red-500">*</span></p>
+        <% if @shop.scenes.any? %>
+          <%= @shop.scenes.order(:name).map(&:name).join(" / ") %>
         <% else %>
-        <p class="text-gray-500">画像はまだ登録されていません</p>
-      <% end %>
-  </div>
+          未設定
+        <% end %>
+    </div>
+
+    <!-- お店の画像 -->
+    <div class="mb-6">
+      <p class="font-bold mb-2">お店の画像</p>
+        <% if @shop.images.attached? %>
+        <div class="flex flex-wrap gap-4">
+          <% @shop.images.each do |img| %>
+          <%= image_tag img.variant(resize_to_fill: [200, 200]).processed, class: "w-[200px] h-[200px] object-cover rounded" %>
+          <% end %>
+        </div>
+          <% else %>
+          <p class="text-gray-500">画像はまだ登録されていません</p>
+        <% end %>
+    </div>
 
     <div class="text-center">
-    <%= link_to "一覧へ戻る", shops_path , class: "bg-orange-400 hover:bg-orange-500 text-white px-6 py-2 rounded" %>
+      <% frame_target = turbo_frame_request? ? "right_panel" : "_top" %>
+      <%= link_to "一覧へ戻る", shops_path , data: { turbo_frame: frame_target }, class: "bg-orange-400 hover:bg-orange-500 text-white px-6 py-2 rounded" %>
+    </div>
   </div>
-</div>
 
-<!-- 地図を置く場所 -->
+<% end %>
+
+<!--
 <div id="map" class="h-64 md:h-80 rounded mt-8 max-w-3xl mx-auto p-6 mb-5"></div>
 
 <script>
@@ -126,6 +130,5 @@
   window.initMap = initMap;
 </script>
 
-<!-- APIキーは環境変数名に合わせて -->
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&callback=initMap"></script>
-
+-->
