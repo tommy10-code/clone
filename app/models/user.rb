@@ -10,7 +10,7 @@ class User < ApplicationRecord
 
   validates :name, presence: true, on: :create
 
-  #お気に入り追加 削除 重複確認
+  # お気に入り追加 削除 重複確認
   def favorite(shop)
     favorites.find_or_create_by!(shop_id: shop.id)
   end
