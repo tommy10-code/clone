@@ -3,16 +3,17 @@ class Shop < ApplicationRecord
   after_validation :geocode, if: :will_save_change_to_address?
 
   belongs_to :user
-  belongs_to :category, optional: true
+  has_many :users, through: :favorites
   has_many :favorites, dependent: :destroy
+
+  belongs_to :category, optional: true
   scope :favorited_by, ->(user_id) {
     joins(:favorites).where(favorites: { user_id: user_id }).distinct
   }
 
-  has_many :users, through: :favorites
-  has_many_attached :images
   has_many :shop_scenes, dependent: :destroy
   has_many :scenes, through: :shop_scenes
+  has_many_attached :images
 
   validates :title, presence: true
   validates :address, presence: true
