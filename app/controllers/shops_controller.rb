@@ -9,7 +9,7 @@ class ShopsController < ApplicationController
       scope = scope.favorited_by(current_user.id)
     end
 
-    @shops = scope
+    @shops = scope.includes(:category, :scenes)
 
     respond_to do |format|
     format.html
