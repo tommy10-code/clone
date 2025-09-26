@@ -31,7 +31,7 @@ class Shop < ApplicationRecord
   end
 
   def self.ransackable_attributes(auth_object = nil)
-  [ "title", "address", "body", "category_id", "created_at", "latitude", "longitude", "scenes", "shop_scenes" ]
+  [ "title", "address", "body", "category_id", "created_at", "latitude", "longitude" ]
   end
 
   def self.ransackable_associations(auth_object = nil)
