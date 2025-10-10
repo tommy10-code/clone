@@ -6,10 +6,10 @@ class Users::OmniauthCallbacksController < ApplicationController
     if @user.persisted?
       sign_in @user, event: :authentication
       redirect_to shops_path, notice: "Googleアカウントでログインしました"
-      nil  # ← これを追加！
+      nil
     else
       redirect_to new_user_registration_url, alert: "ログインに失敗しました"
-      nil  # ← これも追加！
+      nil
     end
   end
 end
