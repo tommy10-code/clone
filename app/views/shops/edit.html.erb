@@ -1,3 +1,5 @@
+<% content_for :title, "お店編集" %>
+
 <%= turbo_frame_tag "right_panel" do %>
   <%= render "form", shop: @shop, heading: "お店の編集" %>
 <% end %>
