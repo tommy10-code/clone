@@ -1,10 +1,12 @@
+<% content_for :title, "お店詳細" %>
+
 <%= turbo_frame_tag "right_panel" do %>
   <div class="max-w-3xl mx-auto text-center mt-5 bg-white rounded-xl shadow-lg p-8">
     <div class="flex justify-between items-center mb-6">
       <div class="flex space-x-4 items-center mx-auto">
         <h1 class="text-3xl font-bold">お店詳細</h1>
         <!-- Google検索ボタン -->
-        <% if user_signed_in? && (@shop.user_id == current_user.id) %>
+        <% if user_signed_in? && (@shop.user == current_user) %>
           <%= link_to edit_shop_path(@shop), class: "text-2xl" do %>
             ✏️
           <% end %>
