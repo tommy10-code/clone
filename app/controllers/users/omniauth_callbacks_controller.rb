@@ -1,7 +1,7 @@
 class Users::OmniauthCallbacksController < ApplicationController
   def google_oauth2
       auth = request.env["omniauth.auth"]
-      @user = User.from_omniauth(auth)
+      @user = Users::FindOrCreateFromOmniauth.call(auth: auth)
 
     if @user.persisted?
       sign_in @user, event: :authentication
