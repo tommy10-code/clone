@@ -25,8 +25,8 @@ Devise.setup do |config|
   config.responder.error_status = :unprocessable_entity
   config.responder.redirect_status = :see_other
 
-  client_id     = ENV["GOOGLE_CLIENT_ID"]
-  client_secret = ENV["GOOGLE_CLIENT_SECRET"]
+  client_id = Rails.application.credentials.dig(:google, :GOOGLE_CLIENT_ID)
+  client_secret = Rails.application.credentials.dig(:google, :GOOGLE_CLIENT_SECRET)
 
   # どの環境でも「値が両方あるときだけ」有効化（production限定にしたければ条件を足す）
   if client_id.present? && client_secret.present?

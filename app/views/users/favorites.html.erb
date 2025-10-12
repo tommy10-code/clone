@@ -3,6 +3,6 @@
 <%= render "shops/list", shops: @favorite_shops%>
 
   <script async
-    src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GOOGLE_MAPS_API_KEY'] %>&libraries=marker,places&loading=async">
+    src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.credentials.dig(:google, :GOOGLE_MAPS_API_KEY)%>&libraries=marker,places&loading=async">
   </script>
 
