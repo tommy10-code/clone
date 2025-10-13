@@ -2,11 +2,8 @@
 import "@hotwired/turbo-rails"
 import "./map"
 import "./autocomplete"
-import { Application } from "@hotwired/stimulus"
-import { Autocomplete } from 'stimulus-autocomplete'  // 追加
-
-const application = Application.start() // 追加
-application.register('autocomplete', Autocomplete) // 追加
+//index.jsを読み込むことでStimulusが起動
+import "./controllers"
 
 document.addEventListener("turbo:visit", () => {
   document.getElementById("loading").classList.remove("hidden");
