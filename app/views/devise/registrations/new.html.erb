@@ -18,13 +18,13 @@
 
       <div data-controller="counter" class="mb-4 field">
         <%= f.label :"パスワード 6文字以上必須", class: "block text-xl font-medium mb-1"%>
-        <%= f.password_field :password, data: { action:"input->counter#update"}, autocomplete: "current-password", class: "w-full border border-gray-300 rounded px-4 py-2 text-lg" %>
+        <%= f.password_field :password, data: { "counter-target":"input", action:"input->counter#update"}, autocomplete: "current-password", class: "w-full border border-gray-300 rounded px-4 py-2 text-lg" %>
         <p data-counter-target="output"></p>
       </div>
 
       <div data-controller="counter" class="field">
         <%= f.label :"パスワード再確認", class: "block text-xl font-medium mb-1"%>
-        <%= f.password_field :password_confirmation, data: { action:"input->counter#update"}, autocomplete: "new-password", class: "w-full border border-gray-300 rounded px-4 py-2 text-lg" %>
+        <%= f.password_field :password_confirmation, data: { "counter-target":"input" ,action:"input->counter#update"}, autocomplete: "new-password", class: "w-full border border-gray-300 rounded px-4 py-2 text-lg" %>
         <p data-counter-target="output"></p>
       </div>
 
