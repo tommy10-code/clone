@@ -46,11 +46,15 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     address:              "smtp.gmail.com",
-    port:                 587,
+    port:                 465,
     domain:               "dokodate.jp",
-    user_name: ENV["GMAIL_ADDRESS"],
-    password: ENV["GMAIL_APP_PASSWORD"],
+    user_name:            ENV["GMAIL_ADDRESS"],
+    password:             ENV["GMAIL_APP_PASSWORD"],
+    ssl: true,
+    tls: true,
     authentication:       :plain,
-    enable_starttls_auto: true
+    enable_starttls_auto: true,
+    open_timeout: 15,
+    read_timeout: 15
   }
 end
