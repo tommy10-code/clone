@@ -46,8 +46,8 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     address:              "sandbox.smtp.mailtrap.io",
-    port:                 587,
-    domain:               "dokodate.jp",
+    port:                 2525,
+    #domain:               "dokodate.jp",
     user_name:            "93d7ae68482909",
     password:             ENV["SMTP_PASS"],
     authentication:       :plain,
