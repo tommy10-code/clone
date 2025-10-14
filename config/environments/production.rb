@@ -39,17 +39,17 @@ Rails.application.configure do
   config.active_storage.service = :amazon
 
   config.action_mailer.default_url_options = {
-    host: 'dokodate.jp',
-    protocol: 'https'
+    host: "dokodate.jp",
+    protocol: "https"
   }
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address:              'smtp.sendgrid.net',
+    address:              "smtp.sendgrid.net",
     port:                 587,
-    domain:               'dokodate.jp',
-    user_name:            'apikey',
-    password:             ENV['SENDGRID_PASSWORD'],
+    domain:               "dokodate.jp",
+    user_name:            "apikey",
+    password:             ENV["SENDGRID_PASSWORD"],
     authentication:       :plain,
     enable_starttls_auto: true
   }
