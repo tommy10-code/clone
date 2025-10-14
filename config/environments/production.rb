@@ -45,7 +45,7 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address:              "smtp.sendgrid.net",
+    address:              "smtp.gmail.com",
     port:                 587,
     domain:               "dokodate.jp",
     user_name: ENV["GMAIL_ADDRESS"],
