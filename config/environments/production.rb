@@ -48,7 +48,7 @@ Rails.application.configure do
     address:              "sandbox.smtp.mailtrap.io",
     port:                 587,
     domain:               "dokodate.jp",
-    user_name:            ENV["SMTP_USER"],
+    user_name:            "93d7ae68482909",
     password:             ENV["SMTP_PASS"],
     authentication:       :plain,
     enable_starttls_auto: true,
