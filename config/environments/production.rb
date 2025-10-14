@@ -48,8 +48,8 @@ Rails.application.configure do
     address:              "smtp.sendgrid.net",
     port:                 587,
     domain:               "dokodate.jp",
-    user_name:            "apikey",
-    password:             ENV["SENDGRID_PASSWORD"],
+    user_name: ENV["GMAIL_ADDRESS"],
+    password: ENV["GMAIL_APP_PASSWORD"],
     authentication:       :plain,
     enable_starttls_auto: true
   }
