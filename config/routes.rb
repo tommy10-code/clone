@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     collection { get :autocomplete }
   end
   get "/favorites", to: "users#favorite"
+  get '/mail_test', to: 'mail_test#send_mail'
 
   # ログインしている時のページを新規に開いた先
   authenticated :user do
