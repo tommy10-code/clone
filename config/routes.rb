@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     omniauth_callbacks: "users/omniauth_callbacks"
   }
-  get "terms", to: "home#terms"
+  get "/terms", to: "home#terms"
   get "privacy", to: "home#privacy"
 
   resources :users, only: [ :index, :show ]
@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   end
 
   get "diagnoses/new"
-  post "diagnosis/result", to: "diagnoses#result", as: :diagnosis_result
+  post "diagnoses/result", to: "diagnoses#result"
 
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
