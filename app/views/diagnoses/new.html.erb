@@ -4,7 +4,7 @@
   <h2 class="text-2xl text-center mb-6 font-bold">次に会うお相手に当てはまるのは？</h2>
   <h2 class=" text-xm text-center mb-6 font-bold text-red-400">1つ選んでください</h2>
 
-  <%= form_with url: diagnosis_result_path, method: :post, local: true, data: { turbo: false } do |f| %>
+  <%= form_with url: diagnoses_result_path, method: :post, local: true, data: { turbo: false } do |f| %>
     <% [
       "優しい目元で、共感力が高く人の気持ちに寄り添える。",
       "清潔感のある服装で、気配り上手な性格。",
