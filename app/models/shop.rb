@@ -7,6 +7,7 @@ class Shop < ApplicationRecord
   belongs_to :category, optional: true
 
   has_many :favorites, dependent: :destroy
+
   scope :favorited_by, ->(user_id) {
     joins(:favorites).where(favorites: { user_id: user_id }).distinct
   }
