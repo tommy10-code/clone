@@ -139,4 +139,4 @@ https://github.com/user-attachments/assets/09a9ed44-89b4-457c-993a-fe56f2892640
 Figma：https://x.gd/AeFrs
 
 ### ER図
-[![ER図](https://i.gyazo.com/4e0df878fa7b4a2b9b12ed8a78cece3b.png)](https://gyazo.com/4e0df878fa7b4a2b9b12ed8a78cece3b)
+[![ER図](https://i.gyazo.com/00d17df4f301f71078d2aac7575d5ad3.png)](https://gyazo.com/00d17df4f301f71078d2aac7575d5ad3)
