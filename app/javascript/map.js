@@ -1,9 +1,9 @@
 document.addEventListener("turbo:load", async () => {
+  //RailsのERB（HTML）内にある <div id="map"> という要素を取得している
   const el = document.getElementById("map");
-  gestureHandling: "greedy"
   if (!el) return; // 地図がないページは何もしない
 
-  // まれに読み込み順のズレがあるので「importLibrary」が来るまで待つ保険
+  //これは何？  まれに読み込み順のズレがあるので「importLibrary」が来るまで待つ保険、これはいるのか、複雑になっていないか？
   if (!window.google?.maps?.importLibrary) {
     await new Promise((resolve) => {
       const t = setInterval(() => {
@@ -12,20 +12,26 @@ document.addEventListener("turbo:load", async () => {
     });
   }
 
+  // mapsライブラリからMapクラス InfoWindowクラス   markerライブラリからMarkerクラス
   const { Map, InfoWindow } = await google.maps.importLibrary("maps");
   const { Marker } = await google.maps.importLibrary("marker");
 
   const nagoya = { lat: 35.1709, lng: 136.8815 };
+  //地図インスタンスを作成
   const map = new Map(el, { center: nagoya, zoom: 15, gestureHandling: "greedy" });
 
+  //これなんだっけ？ 検索結果が反映されないってやつやった気がする
   let markers = [];
   const clearMarkers = () => { markers.forEach(m => m.setMap(null)); markers = []; };
-
+  
+  // マーカーを作成するための条件 shopを引数（Railsなどから受け取った1件分のお店データ）
   const createShopMarker = (shop) => {
     const lat = Number(shop.latitude), lng = Number(shop.longitude);
     if (!Number.isFinite(lat) || !Number.isFinite(lng)) return;
 
+  //マーカーインスタンスを作成 mapは地図インスタンスを作成したときのmapでここにマーカーを指している
     const marker = new Marker({ position: { lat, lng }, map });
+  //吹き出しを作成
     const info = new InfoWindow({
       content: `
         <div class="p-3">
@@ -44,6 +50,7 @@ document.addEventListener("turbo:load", async () => {
     return marker;
   };
 
+  //これは何？  孤立しているが、これは何？マーカーを更新している
   const updateMarkers = (shops) => {
     clearMarkers();
     (shops || []).forEach(s => {
@@ -52,16 +59,17 @@ document.addEventListener("turbo:load", async () => {
     });
   };
 
+  //これは何？  読み込んでいる？なんかで非同期だとうまくいかない処理があったな
   const loadShops = (url) =>
     fetch(url, { headers: { Accept: "application/json" } })
       .then(r => r.json())
       .then(updateMarkers)
       .catch(e => console.error("[shops fetch error]:", e));
 
-  // 初期表示：現在の検索条件でロード
+  // ここも何だろう？初期表示：現在の検索条件でロード
   loadShops("/shops.json" + window.location.search);
 
-  // 現在地マーカー（任意）
+  // このコードも意味も知りたい！現在地マーカーの取得
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
       pos => new Marker({
