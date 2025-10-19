@@ -1,5 +1,6 @@
 document.addEventListener("turbo:load", async () => {
   const el = document.getElementById("map");
+  gestureHandling: "greedy"
   if (!el) return; // 地図がないページは何もしない
 
   // まれに読み込み順のズレがあるので「importLibrary」が来るまで待つ保険
@@ -15,7 +16,7 @@ document.addEventListener("turbo:load", async () => {
   const { Marker } = await google.maps.importLibrary("marker");
 
   const nagoya = { lat: 35.1709, lng: 136.8815 };
-  const map = new Map(el, { center: nagoya, zoom: 15 });
+  const map = new Map(el, { center: nagoya, zoom: 15, gestureHandling: "greedy" });
 
   let markers = [];
   const clearMarkers = () => { markers.forEach(m => m.setMap(null)); markers = []; };
@@ -38,6 +39,7 @@ document.addEventListener("turbo:load", async () => {
         </div>`
     });
     marker.addListener("mouseover", () => info.open({ anchor: marker, map }));
+    marker.addListener("click", () => info.open({ anchor: marker, map }));
     marker.addListener("click", (e) => map.setCenter(e.latLng));
     return marker;
   };
