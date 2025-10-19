@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@plugin "daisyui";
+/* @plugin "daisyui"; */
 
 .loader {
   border: 8px solid #f3f3f3;
