@@ -1,7 +1,7 @@
 document.addEventListener("turbo:load", async () => {
   //RailsのERB（HTML）内にある <div id="map"> という要素を取得している
   const el = document.getElementById("map");
-  if (!el) return; // 地図がないページは何もしない
+  if (!el) return;
 
   //これは何？  まれに読み込み順のズレがあるので「importLibrary」が来るまで待つ保険、これはいるのか、複雑になっていないか？
   if (!window.google?.maps?.importLibrary) {
@@ -23,7 +23,7 @@ document.addEventListener("turbo:load", async () => {
   //これなんだっけ？ 検索結果が反映されないってやつやった気がする
   let markers = [];
   const clearMarkers = () => { markers.forEach(m => m.setMap(null)); markers = []; };
-  
+
   // マーカーを作成するための条件 shopを引数（Railsなどから受け取った1件分のお店データ）
   const createShopMarker = (shop) => {
     const lat = Number(shop.latitude), lng = Number(shop.longitude);
