@@ -3,15 +3,6 @@ document.addEventListener("turbo:load", async () => {
   const el = document.getElementById("map");
   if (!el) return;
 
-  //これは何？  まれに読み込み順のズレがあるので「importLibrary」が来るまで待つ保険、これはいるのか、複雑になっていないか？
-  if (!window.google?.maps?.importLibrary) {
-    await new Promise((resolve) => {
-      const t = setInterval(() => {
-        if (window.google?.maps?.importLibrary) { clearInterval(t); resolve(); }
-      }, 50);
-    });
-  }
-
   // mapsライブラリからMapクラス InfoWindowクラス   markerライブラリからMarkerクラス
   const { Map, InfoWindow } = await google.maps.importLibrary("maps");
   const { Marker } = await google.maps.importLibrary("marker");
