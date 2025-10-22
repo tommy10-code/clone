@@ -2,19 +2,3 @@
 
 <%= render "shops/list", shops: @shops%>
 
-  <script async
-    src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.credentials.dig(:google, :GOOGLE_MAPS_API_KEY) %>&libraries=marker,places&loading=async">
-  </script>
-
-
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const btn = document.getElementById("search");
-      const sel = document.getElementById("category");
-      if (!btn) return;
-      btn.addEventListener("click", e => {
-        e.preventDefault();
-        performSearch(sel.value);
-      });
-    });
-  </script>

@@ -17,6 +17,9 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", type: "module", "data-turbo-track": "reload", defer: true %>
     <link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap" rel="stylesheet">
+    <script async
+    src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.credentials.dig(:google, :GOOGLE_MAPS_API_KEY) %>&libraries=marker,places&loading=async">
+    </script>
 
     <meta name="description" content="地図から直感的にお店を探せるアプリです。">
     <!-- OGP -->

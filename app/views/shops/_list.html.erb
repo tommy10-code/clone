@@ -1,10 +1,11 @@
 <div class="flex flex-col md:flex-row h-screen pt-5 mx-2">
   <!-- 左側：地図 -->
   <div class="w-full md:w-2/3 flex flex-col md:mr-2">
+    <!-- map.js用のid -->
     <div id="map" class="h-[55vh] md:h-3/4 w-full"></div>
 
   <!-- 左側：検索窓 -->
-      <%= search_form_for @q, url: shops_path, method: :get, local: true, data: { turbo: false } do |f| %>
+    <%= search_form_for @q, url: shops_path, method: :get, local: true, data: { turbo: false } do |f| %>
       <div class="flex flex-col md:flex-row md:items-end gap-2 pt-2 ">
         <!-- 1) カテゴリ -->
         <div class="md:flex-1">
