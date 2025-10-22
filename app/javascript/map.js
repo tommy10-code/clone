@@ -16,13 +16,9 @@ document.addEventListener("turbo:load", async () => {
   const { Map, InfoWindow } = await google.maps.importLibrary("maps");
   const { Marker } = await google.maps.importLibrary("marker");
 
-  const nagoya = { lat: 35.1709, lng: 136.8815 };
   //地図インスタンスを作成
+  const nagoya = { lat: 35.1709, lng: 136.8815 };
   const map = new Map(el, { center: nagoya, zoom: 15, gestureHandling: "greedy" });
-
-  //これなんだっけ？ 検索結果が反映されないってやつやった気がする
-  let markers = [];
-  const clearMarkers = () => { markers.forEach(m => m.setMap(null)); markers = []; };
 
   // マーカーを作成するための条件 shopを引数（Railsなどから受け取った1件分のお店データ）
   const createShopMarker = (shop) => {
@@ -50,7 +46,11 @@ document.addEventListener("turbo:load", async () => {
     return marker;
   };
 
-  //これは何？  孤立しているが、これは何？マーカーを更新している
+  // 一度マーカーをリセットする
+  let markers = [];
+  const clearMarkers = () => { markers.forEach(m => m.setMap(null)); markers = []; };
+
+  // 一度マーカーの情報を削除して、新しくマーカーを描写
   const updateMarkers = (shops) => {
     clearMarkers();
     (shops || []).forEach(s => {
@@ -59,14 +59,14 @@ document.addEventListener("turbo:load", async () => {
     });
   };
 
-  //これは何？  読み込んでいる？なんかで非同期だとうまくいかない処理があったな
+  // Railsからshopデータを取得,updateMarkersの関数実行
   const loadShops = (url) =>
     fetch(url, { headers: { Accept: "application/json" } })
       .then(r => r.json())
       .then(updateMarkers)
       .catch(e => console.error("[shops fetch error]:", e));
 
-  // ここも何だろう？初期表示：現在の検索条件でロード
+  // loadShopsの関数を実行
   loadShops("/shops.json" + window.location.search);
 
   // このコードも意味も知りたい！現在地マーカーの取得
