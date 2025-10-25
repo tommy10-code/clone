@@ -1,4 +1,4 @@
-class OnboardingController < ApplicationController
+class OnboardingsController < ApplicationController
   before_action :authenticate_user!
 
   def update
@@ -7,6 +7,5 @@ class OnboardingController < ApplicationController
       current_user.update(hide_onboarding_banner: true)
     end
     head :no_content
-    end
   end
 end
