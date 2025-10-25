@@ -17,7 +17,7 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", type: "module", "data-turbo-track": "reload", defer: true %>
     <link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap" rel="stylesheet">
-    <script async
+    <script
     src="https://maps.googleapis.com/maps/api/js?key=<%= Rails.application.credentials.dig(:google, :GOOGLE_MAPS_API_KEY) %>&libraries=marker,places&loading=async">
     </script>
 
@@ -30,6 +30,7 @@
     <meta property="og:type" content="website" />
     <!-- Twitterカードも追加 -->
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="csrf-token" content="<%= form_authenticity_token %>">
   </head>
 
 <body class="flex flex-col min-h-screen bg-yellow-100">

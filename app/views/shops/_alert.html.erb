@@ -1,0 +1,27 @@
+<!--デザインに関しては後ほどやる！おそらく無駄もある！-->
+<% if current_user && !current_user&.hide_onboarding_banner %>
+  <div
+    id="onboarding-banner"
+    data-controller="onboarding"
+    class="fixed top-0 left-0 right-0 z-50 bg-blue-50 text-blue-800 text-sm py-4" >
+    <div class="mx-auto max-w-5xl px-4 py-3 flex items-start gap-4">
+      <div class="mt-0.5">💡</div>
+      <div class="flex-1 leading-relaxed">
+        <strong class="font-semibold">初めての方へ</strong>：
+        「検索」でお店を絞り込み、地図のマーカーをタップすると詳細が見られます！
+        <div class="mt-2">
+          <label class="inline-flex items-center gap-2">
+            <input type="checkbox" id="hideBannerCheckbox" class="h-4 w-4">
+            <span>次回から表示しない</span>
+          </label>
+        </div>
+      </div>
+      <button
+        type="button"
+        data-action="click->onboarding#dismiss"
+        class="shrink-0 rounded px-2 py-1 border border-blue-200 hover:bg-blue-100"
+        aria-label="ガイドを閉じる"
+      >閉じる</button>
+    </div>
+  </div>
+<% end %>
